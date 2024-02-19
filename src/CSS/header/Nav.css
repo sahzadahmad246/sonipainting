@@ -1,0 +1,50 @@
+
+
+
+header{
+    display: flex;
+    position: fixed;
+    top: 0;
+    
+}
+.navbar{
+    background: #ecf0f3;
+}
+ul li {
+    list-style: none;
+    padding-right: 40px;
+    font-size: 17px;
+    
+}
+ul li a{
+    text-decoration: none;
+    color: #000;
+    
+}
+ul li .active{
+    border-bottom: 2px solid #FF004D;
+    padding-bottom: 5px;
+    color: #FF004D;
+}
+
+.get-quote-btn{
+    padding: 8px 15px;
+    margin: 0px 40px;
+    border: none;
+    outline: none;
+    background: #FF004D;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 767px) {
+    ul li .active{
+        border-bottom: none;
+        padding-bottom: 5px;
+        color: #FF004D;
+    }
+    .get-quote-btn{
+        display: none;
+    }
+}

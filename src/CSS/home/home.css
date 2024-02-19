@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Satisfy&display=swap");
+
+.landing {
+  height: 90vh;
+  padding: 20px;
+  display: flex;
+  background: #ecf0f3;
+  justify-content: center;
+  /* align-items: center; */
+}
+.landing-left {
+  width: 50%;
+  height: 80%;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  height: 80%;
+}
+.left-content {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+}
+.welcome-message {
+  font-family: "Satisfy", cursive;
+  color: rgb(144, 42, 42);
+}
+.left-content h1 {
+  font-size: 49px;
+}
+.left-content h1 span {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-image: linear-gradient(
+    to right,
+    #ff8177 0%,
+    #ff867a 0%,
+    #ff8c7f 21%,
+    #f99185 52%,
+    #cf556c 78%,
+    #b12a5b 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.left-content .left-service {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  margin-top: 20px;
+}
+.left-content .left-service .service-icon {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.left-content .left-service .service-icon span {
+  padding-right: 50px;
+}
+.left-content .left-service .service-icon span i {
+  padding-right: 7px;
+}
+.landing-right {
+  width: 50%;
+  margin-top: 25px;
+
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.left-service .btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+.btn button {
+  padding: 5px;
+  width: 45%;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+.landing-right img {
+  width: 70%;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 767px) {
+  .landing {
+    height: auto;
+    padding: 0px;
+    display: flex;
+    background: #ecf0f3;
+    justify-content:baseline;
+    flex-direction: column-reverse;
+  }
+  .landing-left {
+    width: 99%;
+    margin: 0px auto;
+    margin-top: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: baseline;
+    flex-direction: column;
+   
+  }
+  .left-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    
+  }
+  .welcome-message {
+    font-family: "Satisfy", cursive;
+    color: rgb(144, 42, 42);
+    display: none;
+  }
+  .left-content h1 {
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+  }
+  .left-content h1 span {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(
+      to right,
+      #ff8177 0%,
+      #ff867a 0%,
+      #ff8c7f 21%,
+      #f99185 52%,
+      #cf556c 78%,
+      #b12a5b 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .left-content .left-service {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 10px 0px;
+  }
+  .left-content .left-service .service-icon {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .left-content .left-service .service-icon span {
+    padding-right: 0px;
+  }
+  .left-content .left-service .service-icon span i {
+    padding-right: 7px;
+  }
+  
+  .left-service .btn {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .btn button {
+    padding: 5px;
+    width: 45%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+  }
+  .landing-right {
+    width: 100%;
+    margin: 0px 0px;
+    display: flex;
+    justify-content: baseline;
+    text-align: center;
+  }
+  .landing-right img {
+    width: 100%;
+    border-radius: 0px;
+  }
+}

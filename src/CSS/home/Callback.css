@@ -1,0 +1,119 @@
+.callback-main {
+  width: 50%;
+  min-height: 50vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 30px auto;
+  border-radius: 15px;
+  padding: 20px;
+}
+.callback-top {
+  margin: 0px 10px;
+}
+.callback-top h3 {
+  margin: 0;
+  padding: 5px 0px;
+}
+.callback-top p {
+  color: gray;
+  margin: 0;
+  padding: 3px;
+}
+
+.callback-main form .input-fields {
+  margin: 25px 0px;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px;
+}
+.callback-main form .input-fields .input-field {
+  width: 45%;
+  border-bottom: 1px solid gray;
+}
+.callback-main form .input-field input {
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+}
+form .input-field {
+  margin: 10px;
+}
+form .input-field textarea {
+  padding: 7px;
+  border-radius: 15px;
+}
+form .callback-btn {
+  margin: 20px 10px;
+
+  display: flex;
+  justify-content: space-between;
+}
+form .callback-btn button {
+  width: 45%;
+  border: none;
+  outline: none;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .callback-main {
+    width: 95%;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin: 30px auto;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  .callback-top {
+    margin: 0px 0px;
+  }
+  .callback-top h3 {
+    margin: 0;
+    padding: 0px 0px;
+    font-size: 20px;
+  }
+  .callback-top p {
+    color: gray;
+    margin: 0;
+    padding: 0px;
+    font-size: 15px;
+  }
+
+  .callback-main form .input-fields {
+    
+    margin: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+  }
+  .callback-main form .input-fields .input-field {
+    width: 95%;
+    border-bottom: 1px solid gray;
+  }
+  .callback-main form .input-field input {
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+  }
+  form .input-field {
+    margin: 7px;
+  }
+  form .input-field textarea {
+    padding: 7px;
+    border-radius: 1px;
+    
+  }
+  form .callback-btn {
+    margin: 20px 10px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+  form .callback-btn button {
+    width: 45%;
+    border: none;
+    outline: none;
+    padding: 5px;
+    border-radius: 20px;
+  }
+}

@@ -1,0 +1,120 @@
+.our-serives {
+  display: flex;
+  margin: 30px 0px;
+  align-items: center;
+  flex-direction: column;
+}
+.our-serives .serives-text {
+  font-size: 22px;
+  padding: 10px 5px;
+  font-family: "Satisfy", cursive;
+}
+.our-serives h1 {
+  font-size: 34px;
+}
+.our-serives h1 span {
+  background-image: linear-gradient(
+    to right,
+    #ff8177 0%,
+    #ff867a 0%,
+    #ff8c7f 21%,
+    #f99185 52%,
+    #cf556c 78%,
+    #b12a5b 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.services-boxes {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0px;
+}
+.services-boxes .services-box {
+  min-height: 180px;
+  width: 16%;
+  border-radius: 15px;
+  padding: 17px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.services-box img {
+  width: 60px;
+}
+.services-boxes .know-more-btn {
+  padding: 5px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .our-serives {
+    display: flex;
+    margin: 5px 0px;
+    align-items: center;
+    flex-direction: column;
+  }
+  .our-serives .serives-text {
+    font-size: 22px;
+    padding: 5px;
+    text-align: center;
+    font-family: "Fredoka", sans-serif;
+  }
+  .our-serives h1 {
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+  }
+  .our-serives h1 span {
+    background-image: linear-gradient(
+      to right,
+      #ff8177 0%,
+      #ff867a 0%,
+      #ff8c7f 21%,
+      #f99185 52%,
+      #cf556c 78%,
+      #b12a5b 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .services-boxes {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 3fr);
+    gap: 0px;
+    justify-content: center;
+    margin: 10px auto;
+    flex-direction: column;
+  }
+  .services-boxes .services-box {
+    min-height: 100px;
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 15px;
+    padding: 17px;
+    border: 0.5px solid gray;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  }
+  .services-box img {
+    width: 40px;
+  }
+  .services-box h5{
+    font-size: 16px;
+  }
+  .services-box p{
+    font-size: 14px;
+    color: gray;
+  }
+  .services-boxes .know-more-btn {
+    padding: 5px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+  }
+}

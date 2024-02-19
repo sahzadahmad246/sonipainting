@@ -1,0 +1,206 @@
+.contact-main {
+  height: 80vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 70%;
+  margin: 30px auto;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 60px 30px;
+}
+.call {
+  width: 45%;
+  border-right: 1px dashed gray;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-right: 50px;
+}
+.profile-pic {
+  width: 150px;
+  border-radius: 50%;
+  margin: 10px auto;
+
+    padding: 3px;
+    background: red;
+}
+.profile-pic img {
+  width: 100%;
+  border-radius: 50%;
+  /* border-radius: 15px; */
+}
+.call p {
+  width: 100%;
+  padding: 5px;
+}
+
+.call-to-action {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.call-to-action a {
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  width: 40%;
+  text-decoration: none;
+  text-align: center;
+}
+.contact {
+  width: 40%;
+  height: auto;
+
+  border-radius: 15px;
+  padding: 20px;
+}
+.contact form {
+  margin-top: 20px;
+}
+
+.contact form .input-field {
+  border-bottom: 1px solid black;
+  padding: 5px 0px;
+  margin: 20px 0px;
+}
+.contact form .input-field i {
+  padding-right: 6px;
+}
+.contact form .input-field input,
+.input {
+  padding: 0px 6px;
+  width: 90%;
+  border: none;
+  outline: none;
+}
+.input-field-last {
+  border: none;
+}
+textarea {
+  padding: 0px 6px;
+  width: 100%;
+
+  outline: none;
+}
+.contact button {
+  padding: 5px;
+  width: 100%;
+  border: none;
+  margin-top: 7px;
+  outline: none;
+  border-radius: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .contact-main {
+    height: auto;
+    box-shadow: none;
+    width: 95%;
+    margin: 20px auto;
+    border-radius: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    padding: 0px;
+  }
+  .call {
+    border: 1px solid gray;
+    width: 100%;
+    border-radius: 15px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 5px;
+   
+  }
+  .call-top {
+    display: flex;
+    margin-bottom: 6px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .profile-pic {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 10px 0px;
+    padding: 3px;
+    background: red;
+  }
+  .profile-pic img {
+    width: 100%;
+    border-radius: 50%;
+  }
+  .call-top p {
+    width: 60%;
+    padding: 5px;
+  }
+
+  .call-to-action {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .call-to-action a {
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    width: 40%;
+    text-decoration: none;
+    text-align: center;
+  }
+  .contact {
+    width: 100%;
+    height: auto;
+    border: 1px solid gray;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 30px;
+  }
+  .contact form {
+    margin-top: 0px;
+    width: 100%;
+  }
+
+  .contact form .input-field {
+    border-bottom: 1px solid black;
+    padding: 5px 0px;
+    margin: 8px 0px;
+  }
+  .contact form .input-field i {
+    padding-right: 6px;
+  }
+  .contact form .input-field input,
+  .input {
+    padding: 0px 6px;
+    width: 90%;
+    border: none;
+    outline: none; margin-top: 7px;
+  }
+  .input-field-last {
+    border: none;
+  }
+  textarea {
+    padding: 0px 6px;
+    width: 100%;
+    outline: none;
+    margin-top: 15px;
+  }
+  .contact button {
+    padding: 5px;
+    width: 100%;
+    border: none;
+    margin-top: 7px;
+    outline: none;
+    border-radius: 20px;
+  }
+}
