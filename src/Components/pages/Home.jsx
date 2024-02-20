@@ -6,9 +6,11 @@ import { Gallery, images } from "./Gallery";
 import "../../CSS/home/home.css";
 import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
+import ImagePreview from "../other/ImagePreview";
 
 function Home() {
   const [firstImages, setFirstImages] = useState([]);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     const detectMobileDevice = () => {
@@ -20,8 +22,17 @@ function Home() {
     const initialSlice = detectMobileDevice() ? 5 : 7;
     setFirstImages(images.slice(0, initialSlice));
   }, []);
+
+  const handleImageClick = (imageUrl) => {
+    setPreviewImage(imageUrl);
+  };
+
+  const handleClosePreview = () => {
+    setPreviewImage(null);
+  };
   return (
     <>
+      
       <div className="landing">
         <div className="landing-left">
           <div className="left-content">
@@ -64,14 +75,20 @@ function Home() {
       </div>
 
       <Services />
+
       <div className="gallery-title">
         <h1>
           Discover Our <span>Painting Portfolio</span>
         </h1>
       </div>
+
       <div className="gallery-main">
         {firstImages.map((image, index) => (
-          <div className="gallery-image" key={index}>
+          <div
+            className="gallery-image"
+            key={index}
+            onClick={() => handleImageClick(image)}
+          >
             <img src={image} alt={`Image ${index}`} />
           </div>
         ))}
@@ -81,7 +98,11 @@ function Home() {
         </NavLink>
       </div>
 
-      <Footer/>
+      {previewImage && (
+        <ImagePreview imageUrl={previewImage} onClose={handleClosePreview} />
+      )}
+
+      <Footer />
     </>
   );
 }
