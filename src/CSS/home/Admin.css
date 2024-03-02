@@ -1,0 +1,41 @@
+.admin-main{
+    border: 1px solid red;
+    min-height: 100vh;
+    padding: 0px;
+}
+
+.admin-top{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #ecf0f3;
+}
+.admin-top .admin-top-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+.admin-name-email{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* border: 1px solid red; */
+    height: 45px;
+    margin: 0px 10px;
+}
+.admin-name-email h5, p{
+    margin: 0;
+    padding: 0;
+}
+ .admin-top button {
+border: none;
+outline: none;
+padding: 5px;
+color: #fff;
+height: 40px;
+width: 130px;
+margin: 0px 30px;
+border-radius: 20px;
+}

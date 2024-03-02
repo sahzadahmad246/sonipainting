@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-
 import painterImage from "../../images/painter1.jpg";
 import Services from "../pages/Services";
 import { Gallery, images } from "./Gallery";
+import Login from "../other/Login";
 import "../../CSS/home/home.css";
 import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
 import ImagePreview from "../other/ImagePreview";
+import Reviews from "../other/Reviews";
 
 function Home() {
   const [firstImages, setFirstImages] = useState([]);
@@ -32,7 +33,6 @@ function Home() {
   };
   return (
     <>
-      
       <div className="landing">
         <div className="landing-left">
           <div className="left-content">
@@ -40,7 +40,7 @@ function Home() {
               Welcome to Soni Painting Wroks
             </div>
             <h1>
-              Give shining <span>featrues </span>
+              Give shining <span>features </span>
             </h1>
             <h1> to your home</h1>
             <div className="left-service">
@@ -73,7 +73,6 @@ function Home() {
           <img src={painterImage} alt="painter image" />
         </div>
       </div>
-
       <Services />
 
       <div className="gallery-title">
@@ -101,7 +100,7 @@ function Home() {
       {previewImage && (
         <ImagePreview imageUrl={previewImage} onClose={handleClosePreview} />
       )}
-
+      <Reviews />
       <Footer />
     </>
   );
