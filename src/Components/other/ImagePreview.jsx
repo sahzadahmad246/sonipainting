@@ -5,7 +5,7 @@ import '../../CSS/home/home.css'
 function ImagePreview({ imageUrl, onClose }) {
   return (
     <div className="preview-overlay">
-      <div className="preview-container">
+      <div className="gallery-preview-container">
         <button className="close-button" onClick={onClose}>
           <i className="fa fa-solid fa-x"></i>
         </button>

@@ -12,6 +12,9 @@ import Services from "./Components/pages/Services.jsx";
 import Callback from "./Components/pages/Callback.jsx";
 import Admin from "./Components/other/Admin.jsx";
 import Login from "./Components/other/Login.jsx";
+import Register from "./Components/other/Register.jsx";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
 
 const router = createBrowserRouter([
   {
@@ -46,10 +49,12 @@ const router = createBrowserRouter([
         path: "/admin/login",
         element: <Login />,
       },
+      {
+        path: "/admin/register",
+        element: <Register />,
+      },
     ],
-   
   },
-  
   {
     path: "/admin",
     element: <Admin />,
@@ -57,7 +62,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </Provider>
 );

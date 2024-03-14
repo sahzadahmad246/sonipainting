@@ -39,6 +39,12 @@ ul li .active{
 }
 
 @media only screen and (max-width: 767px) {
+   
+    ul li{
+        margin: 10px 0px;
+        padding: 5px ;
+        width: 100%;
+    }
     ul li .active{
         border-bottom: none;
         padding-bottom: 5px;

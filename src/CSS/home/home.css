@@ -97,35 +97,42 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-  z-index: 9999; /* Ensure it's above everything else */
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 9999; 
   display: flex;
-  justify-content: center;
+  justify-content: center; 
   align-items: center;
+  /* border: 1px solid red;  */
 }
 
-.preview-container {
-  position: relative;
-  border-radius: 20px;
+.gallery-preview-container {
+  border-radius: 0px;
   background: #fff;
+  /* border: 1px solid red; */
+  width: 450px;
+  height: 450px;
 }
+
 
 .close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
+  /* position: absolute; */
+ color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
   border: none;
+  width: 100%;
   padding: 5px 10px;
   cursor: pointer;
 }
-
-.preview-image img {
-  max-width: 80vw; 
-  max-height: 80vh; 
-  border-radius: 20px;
+.preview-image {
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100%;
 }
-
+.preview-image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
 
 @media only screen and (max-width: 767px) {
   .landing {
@@ -133,7 +140,7 @@
     padding: 0px;
     display: flex;
     background: #ecf0f3;
-    justify-content:baseline;
+    justify-content: baseline;
     flex-direction: column-reverse;
   }
   .landing-left {
@@ -144,14 +151,12 @@
     display: flex;
     justify-content: baseline;
     flex-direction: column;
-   
   }
   .left-content {
     display: flex;
     justify-content: center;
     flex-direction: column;
     width: auto;
-    
   }
   .welcome-message {
     font-family: "Satisfy", cursive;
@@ -196,7 +201,7 @@
   .left-content .left-service .service-icon span i {
     padding-right: 7px;
   }
-  
+
   .left-service .btn {
     margin-top: 20px;
     display: flex;

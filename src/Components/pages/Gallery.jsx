@@ -1,25 +1,34 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import ImagePreview from "../other/ImagePreview";
 import "../../CSS/home/Gallery.css";
-import thumbnail1 from "../../images/interior.png";
-import thumbnail2 from "../../images/painter.jpg";
-import thumbnail3 from "../../images/painter.jpg";
+import { ThreeDots } from "react-loader-spinner";
+import axios from "axios";
 
-const images = [
-  thumbnail1,
-  thumbnail2,
-  thumbnail3,
-  thumbnail1,
-  thumbnail2,
-  thumbnail3,
-  thumbnail3,
-  thumbnail1,
-  thumbnail2,
-  thumbnail3,
-];
-
-const Gallery = () => {
+const Gallery = ({ displayCount }) => { // Receive displayCount prop
   const [previewImage, setPreviewImage] = useState(null);
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:5000/get-images", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setImages(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
   const handleImageClick = (imageUrl) => {
     setPreviewImage(imageUrl);
   };
@@ -27,6 +36,7 @@ const Gallery = () => {
   const handleClosePreview = () => {
     setPreviewImage(null);
   };
+  
   return (
     <div className="gallery-div">
       <div className="gallery-title">
@@ -35,15 +45,21 @@ const Gallery = () => {
         </h1>
       </div>
       <div className="gallery-main">
-        {images.map((image, index) => (
-          <div
-            className="gallery-image"
-            key={index}
-            onClick={() => handleImageClick(image)}
-          >
-            <img src={image} alt={`Image ${index}`} />
+        {loading ? (
+          <div className="loader">
+            <ThreeDots color="#000000" height={50} width={50} />
           </div>
-        ))}
+        ) : (
+          images.slice(0, displayCount).map((imageName, index) => ( // Slice the images array
+            <div className="gallery-image" key={index}>
+              <img
+                src={`http://localhost:5000/images/${imageName}`}
+                alt={`Image ${index}`}
+                onClick={() => handleImageClick(`http://localhost:5000/images/${imageName}`)}
+              />
+            </div>
+          ))
+        )}
       </div>
       {previewImage && (
         <ImagePreview imageUrl={previewImage} onClose={handleClosePreview} />
@@ -52,5 +68,4 @@ const Gallery = () => {
   );
 };
 
-export { images, Gallery };
 export default Gallery;
