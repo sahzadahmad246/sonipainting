@@ -70,7 +70,7 @@ const UploadedPhotos = () => {
         images.map((imageName, index) => (
           <div className="image-box" key={index}>
             <img
-              src={`http://localhost:5000/images/${imageName}`}
+              src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
               alt={`Image ${index}`}
             />
             <button
