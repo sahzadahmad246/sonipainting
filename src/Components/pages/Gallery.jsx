@@ -13,7 +13,8 @@ const Gallery = ({ displayCount }) => { // Receive displayCount prop
     const fetchImages = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/get-images", {
+        const response = await axios.get(
+          "https://sonipainting-backend.onrender.com/get-images", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -53,9 +54,9 @@ const Gallery = ({ displayCount }) => { // Receive displayCount prop
           images.slice(0, displayCount).map((imageName, index) => ( // Slice the images array
             <div className="gallery-image" key={index}>
               <img
-                src={`http://localhost:5000/images/${imageName}`}
+                src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
                 alt={`Image ${index}`}
-                onClick={() => handleImageClick(`http://localhost:5000/images/${imageName}`)}
+                onClick={() => handleImageClick(`https://sonipainting-backend.onrender.com/images/${imageName}`)}
               />
             </div>
           ))

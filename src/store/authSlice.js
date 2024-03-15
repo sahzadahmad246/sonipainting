@@ -40,7 +40,7 @@ export const fetchUserData = () => async (dispatch, getState) => {
 
     const token = getState().auth.token;
 
-    const response = await fetch('http://localhost:5000/user', {
+    const response = await fetch('https://sonipainting-backend.onrender.com/user', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,

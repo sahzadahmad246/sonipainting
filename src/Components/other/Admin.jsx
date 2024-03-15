@@ -77,7 +77,7 @@ const Admin = () => {
               </div>
             </div>
             <button className="bg-danger" onClick={confirmLogout}>
-              Logout <MdLogout size={25} className="ps-1" />
+              Logout <MdLogout size={20} className="ps-1" />
             </button>
           </div>
           <AddPhotos />

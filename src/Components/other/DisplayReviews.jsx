@@ -11,9 +11,9 @@ const DisplayReviews = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch("http://localhost:5000/reviews"),
-      fetch("http://localhost:5000/average-rating"),
-      fetch("http://localhost:5000/ratings-count"),
+      fetch("https://sonipainting-backend.onrender.com/reviews"),
+      fetch("https://sonipainting-backend.onrender.com/average-rating"),
+      fetch("https://sonipainting-backend.onrender.com/ratings-count"),
     ])
       .then(([reviewsResponse, averageRatingResponse, ratingsCountResponse]) =>
         Promise.all([

@@ -1,8 +1,9 @@
 .gallery-title {
-  margin: 20px;
+  margin: 20px auto;
   width: 90%;
   display: flex;
   justify-content: center;
+  padding: 10px 0px;
 }
 .gallery-title h1 span {
   background-image: linear-gradient(
@@ -22,6 +23,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin: 20px 35px;
+  
 }
 
 .gallery-image {
@@ -54,7 +56,7 @@
   .gallery-title {
     margin: 10px 0px;
     width: 100%;
-    padding: 0px 5px;
+    padding: 10px 5px;
     display: flex;
     justify-content: center;
   }

@@ -1,73 +1,92 @@
-.admin-main{
-    min-height: 100vh;
-    padding: 0px;
+.admin-main {
+  min-height: 100vh;
+  padding: 0px;
 }
-.admin-loader{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.admin-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.admin-top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: #ecf0f3;
+.admin-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #ecf0f3;
 }
-.admin-top .admin-top-left{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.admin-top .admin-top-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.admin-name-email{
-    display: flex;
-    flex-direction: column;
-    height: 45px;
-    margin: 0px 10px;
+.admin-name-email {
+  display: flex;
+  flex-direction: column;
+  height: 45px;
+  margin: 0px 10px;
 }
-.admin-name-email h5, p{
-    margin: 0;
-    padding: 0;
+.admin-name-email h5,
+p {
+  margin: 0;
+  padding: 0;
 }
- .admin-top button {
-border: none;
-outline: none;
-padding: 5px;
-color: #fff;
-height: 40px;
-width: 130px;
-margin: 0px 30px;
-border-radius: 20px;
+.admin-top button {
+  border: none;
+  outline: none;
+  padding: 5px;
+  color: #fff;
+  height: 40px;
+  width: 130px;
+  margin: 0px 30px;
+  border-radius: 20px;
 }
 
 .confirmation-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.confirmation-popup-button {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+.confirmation-popup-button button {
+  padding: 0px 5px;
+  width: 50px;
+  border: none;
+  outline: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .admin-loader {
     display: flex;
     justify-content: center;
-    flex-direction: column;
     align-items: center;
-    border-radius: 10px;
+  }
+  .admin-top {
+    padding: 10px;
   }
 
-  .confirmation-popup-button{
-  
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: end;
+  .admin-top button {
+    width: 100px;
+    margin: 0px 0px;
   }
-  .confirmation-popup-button button{
-    padding:  0px 5px;
-    width: 50px;
-    /* margin-right: 10px ; */
-    border: none;
-    outline: none;
+
+  .confirmation-popup {
+    width: 90%;
   }
+}

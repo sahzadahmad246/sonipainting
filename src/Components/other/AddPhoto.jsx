@@ -80,7 +80,7 @@ const AddPhotos = () => {
             {selectedFiles.map((file, index) => (
               <div key={index} className="preview">
                 <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
-                <span>{truncateFileName(file.name, 15)}</span>
+                {/* <span>{truncateFileName(file.name, 10)}</span> */}
               </div>
             ))}
           </div>

@@ -2,6 +2,7 @@
   display: flex;
   margin: 0px;
   justify-content: center;
+
 }
 
 .add-photo {
@@ -128,4 +129,105 @@
   outline: none;
   padding: 10px;
   color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .select-image {
+    padding: 0px;
+    width: 80%;
+    height: 180px;
+  }
+
+  
+  .input-box:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .gallery-icon {
+    width: 50px;
+    height: 50px;
+    color: rgb(70, 69, 69);
+  }
+  
+  .upload-btn {
+    outline: none;
+    border: none;
+    color: #fff;
+    padding: 7px;
+    width: 300px;
+    margin-top: 25px;
+    border-radius: 10px;
+  }
+  
+  .preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0px;
+    justify-content: space-around;
+    border-radius: 0px;
+    margin: 30px 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+    border: 1px solid red;
+  }
+  
+  .preview {
+    width: 80px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    margin: 10px;
+    border: 1px solid red;
+  }
+  
+  .preview img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid red;
+  }
+  
+  .preview span {
+    display: block;
+    margin-top: 5px;
+    margin: 5px;
+  }
+  
+  
+  /* css for uploadedphotos component */
+  .image-container {
+    height: 100%;
+    padding: 40px 0px ;
+    display: grid;
+    gap: 35px; 
+    padding-left: 25px;
+    background: #ecf0f3;
+    grid-template-columns: repeat(2, calc((100% - 70px) / 2));
+    border: 1px solid red; /* Adjusted column width */
+  }
+  
+  .image-box{
+    width: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .image-container img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .image-box button{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    color: #fff;
+  }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../../CSS/home/Contact.css";
-import { Link } from "react-router-dom";
 import profilePic from "../../images/profilepic.jpg";
+
 function Contact() {
   const [formData, setFormData] = useState({
     fname: "",
@@ -9,9 +10,16 @@ function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      await axios.post("http://localhost:5000/contact", formData);
+      alert("Message sent successfully");
+      setFormData({ fname: "", phone: "", message: "" });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("Error sending message. Please try again later.");
+    }
   };
 
   const handleFormChange = (e) => {
@@ -25,14 +33,14 @@ function Contact() {
   return (
     <div className="contact-main">
       <div className="call">
-      <div className="call-top">
-        <div className="profile-pic">
-          <img src={profilePic} />
-        </div>
-        <p>
-          Hello, I'm Omprakah Gupta a professional painter and have 8 years of
-          experiance
-        </p>
+        <div className="call-top">
+          <div className="profile-pic">
+            <img src={profilePic} alt="Profile" />
+          </div>
+          <p>
+            Hello, I'm Omprakah Gupta a professional painter and have 8 years
+            of experience
+          </p>
         </div>
         <div className="call-to-action">
           <a href="tel:+917355109388" className="bg-danger text-light">
@@ -49,7 +57,7 @@ function Contact() {
       <div className="contact">
         <h3>Get in touch</h3>
         <p>Fill out this form, we'll try to contact you asap!</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input-field">
             <i className="fa-regular fa-user"></i>
             <input
@@ -83,7 +91,7 @@ function Contact() {
               style={{ height: "100px" }}
             ></textarea>
           </div>
-          <button onClick={handleSubmit} className="bg-danger text-light">
+          <button type="submit" className="bg-danger text-light">
             Send message
           </button>
         </form>
