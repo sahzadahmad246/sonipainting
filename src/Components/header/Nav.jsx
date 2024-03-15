@@ -44,6 +44,11 @@ function Nav() {
                   Contact
                 </NavLink>
               </li>
+              <li class="nav-item">
+                <NavLink class="nav-link" to="/admin/login">
+                  Login as admin
+                </NavLink>
+              </li>
               
             </ul>
           </form>
