@@ -36,7 +36,7 @@ const AddPhotos = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/upload",
+        "https://sonipainting-backend.onrender.com/upload",
         formData,
         {
           headers: {

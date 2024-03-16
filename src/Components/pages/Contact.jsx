@@ -43,11 +43,11 @@ function Contact() {
           </p>
         </div>
         <div className="call-to-action">
-          <a href="tel:+917355109388" className="bg-danger text-light">
+          <a href="tel:+919022846640" className="bg-danger text-light">
             <i className="fa fa-solid fa-phone"></i> Call Me
           </a>
           <a
-            href="whatsapp://send?phone=+917355109388"
+            href="whatsapp://send?phone=+919022846640"
             className="border border-danger text-danger"
           >
             <i className=" px-2 fa fa-solid fa-whatsapp"></i>WhatsApp

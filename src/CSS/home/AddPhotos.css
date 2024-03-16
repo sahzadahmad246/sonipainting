@@ -112,7 +112,9 @@
 }
 
 .image-container .loader{
-
+width: 1300px;
+display: flex;
+justify-content: center;
 }
 .image-box{
   width: 200px;
@@ -214,6 +216,11 @@
 
   }
   
+  .image-container .loader{
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    }
   .image-box{
     width: 150px;
     border-top-left-radius: 10px;

@@ -83,12 +83,12 @@ function Nav() {
               </li>
               <li className="nav-item">
                 {isLoggedin ? (
-                  <NavLink className="nav-item" onClick={confirmLogout}>
-                    Logout <MdLogout size={20} className="ps-1" />
+                  <NavLink className="nav-item" to="/admin" onClick={confirmLogout}>
+                  Admin dashboard 
                   </NavLink>
                 ) : (
-                  <NavLink className="nav-item" to="/admin">
-                    Admin dashboard
+                  <NavLink className="nav-item" to="/admin/login">
+                    Login as admin
                   </NavLink>
                 )}
               </li>
