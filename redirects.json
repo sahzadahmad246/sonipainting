@@ -1,0 +1,33 @@
+[
+    {
+      "source": "/gallery",
+      "destination": "/gallery",
+      "type": 200
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact",
+      "type": 200
+    },
+    {
+      "source": "/services",
+      "destination": "/services",
+      "type": 200
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin",
+      "type": 200
+    },
+    {
+      "source": "/admin/login",
+      "destination": "/admin/login",
+      "type": 200
+    },
+    {
+      "source": "/admin/register",
+      "destination": "/admin/register",
+      "type": 200
+    }
+  ]
+  
