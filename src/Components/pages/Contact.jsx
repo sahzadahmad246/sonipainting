@@ -65,7 +65,6 @@ function Contact() {
         <p>Fill out this form, we'll try to contact you asap!</p>
         <form onSubmit={handleSubmit}>
           <div className="input-field">
-            <i className="fa-regular fa-user"></i>
             <input
               type="text"
               name="fname"
@@ -76,7 +75,6 @@ function Contact() {
             />
           </div>
           <div className="input-field">
-            <i className="fa-solid fa-phone"></i>
             <input
               type="tel"
               name="phone"
@@ -101,13 +99,13 @@ function Contact() {
             {loading ? ( // Display loader if loading is true
               <>
                 <div className="loader-in-contact">
-                <ThreeDots
-                  color="white"
-                  height={25}
-                  width={25}
-                  visible={true}
-                  
-                /></div>
+                  <ThreeDots
+                    color="white"
+                    height={25}
+                    width={25}
+                    visible={true}
+                  />
+                </div>
               </>
             ) : (
               "Send message"
