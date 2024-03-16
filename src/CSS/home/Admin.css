@@ -41,6 +41,27 @@ p {
   border-radius: 20px;
 }
 
+.admin-options{
+  padding: 5px ;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.admin-options button{
+  padding: 4px;
+  margin: 4px 10px;
+  width: 160px;
+  border: 1px solid gray;
+  outline: none;
+  background: #fff;
+  border-radius: 20px;
+}
+.admin-options button.active {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
 .confirmation-popup {
   position: fixed;
   top: 50%;

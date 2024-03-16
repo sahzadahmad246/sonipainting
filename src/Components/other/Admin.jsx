@@ -8,6 +8,7 @@ import AddPhotos from "./AddPhoto";
 import { fetchUserData } from "../../store/authSlice";
 import { ThreeDots } from "react-loader-spinner";
 import { clearToken } from "../../store/authSlice";
+import MessagesComponent from "../pages/Messages";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Admin = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
+  const [showAddPhotos, setShowAddPhotos] = useState(true); // State to control rendering of AddPhotos component
 
   useEffect(() => {
     const isAuthenticated = !!localStorage.getItem("token");
@@ -80,19 +82,29 @@ const Admin = () => {
               Logout <MdLogout size={20} className="ps-1" />
             </button>
           </div>
-          <AddPhotos />
+          <div className="admin-options">
+            <button
+              onClick={() => setShowAddPhotos(true)}
+              className={showAddPhotos ? "active" : ""}
+            >
+              Add Photos
+            </button>
+            <button
+              onClick={() => setShowAddPhotos(false)}
+              className={!showAddPhotos ? "active" : ""}
+            >
+              Messages
+            </button>
+          </div>
+          {showAddPhotos ? <AddPhotos /> : <MessagesComponent />}
         </div>
       ) : (
         <NavLink to="/admin/login">Login</NavLink>
       )}
 
-
       {showLogoutConfirmation && (
         <div className="confirmation-popup">
-          <MdLogout
-            size={30}
-            className="ps-1 my-2  border-circle"
-          />
+          <MdLogout size={30} className="ps-1 my-2  border-circle" />
 
           <p>Are you sure you want to logout?</p>
           <div className="confirmation-popup-button ">
@@ -116,7 +128,3 @@ const Admin = () => {
 };
 
 export default Admin;
-
-
-
-

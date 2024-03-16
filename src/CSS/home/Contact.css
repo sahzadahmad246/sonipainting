@@ -63,7 +63,6 @@
 }
 
 .contact form .input-field {
-  border-bottom: 1px solid black;
   padding: 5px 0px;
   margin: 20px 0px;
 }
@@ -72,19 +71,22 @@
 }
 .contact form .input-field input,
 .input {
-  padding: 0px 6px;
-  width: 90%;
+  padding: 4px 6px;
+  width: 97%;
   border: none;
   outline: none;
+  border: 1px solid rgb(193, 192, 192);
+  border-radius: 6px;
 }
 .input-field-last {
   border: none;
 }
 textarea {
   padding: 0px 6px;
-  width: 100%;
-
+  width: 97%;
+  border: 1px solid rgb(193, 192, 192);
   outline: none;
+  border-radius: 6px;
 }
 .contact button {
   padding: 5px;
@@ -93,6 +95,10 @@ textarea {
   margin-top: 7px;
   outline: none;
   border-radius: 20px;
+}
+.loader-in-contact{
+  width: 100%; display: flex;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 767px) {
@@ -133,7 +139,7 @@ textarea {
     border-radius: 50%;
     margin: 10px 0px;
     padding: 3px;
-    background: red;
+
   }
   .profile-pic img {
     width: 100%;
@@ -172,7 +178,6 @@ textarea {
   }
 
   .contact form .input-field {
-    border-bottom: 1px solid black;
     padding: 5px 0px;
     margin: 8px 0px;
   }
@@ -181,19 +186,22 @@ textarea {
   }
   .contact form .input-field input,
   .input {
-    padding: 0px 6px;
-    width: 90%;
-    border: none;
-    outline: none; margin-top: 7px;
+    padding: 4px 6px;
+  width: 97%;
+  border: none;
+  outline: none;
+  border: 1px solid rgb(193, 192, 192);
+  border-radius: 6px;
   }
   .input-field-last {
     border: none;
   }
   textarea {
-    padding: 0px 6px;
-    width: 100%;
+    padding: px px;
+    width: 97%;
     outline: none;
     margin-top: 15px;
+    margin-right: 15px;
   }
   .contact button {
     padding: 5px;

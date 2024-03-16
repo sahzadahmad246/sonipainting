@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../../CSS/home/Contact.css";
 import profilePic from "../../images/profilepic.jpg";
+import { toast } from "react-toastify";
+import { ThreeDots } from "react-loader-spinner";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -9,16 +11,20 @@ function Contact() {
     phone: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state to true when submitting form
     try {
       await axios.post("http://localhost:5000/contact", formData);
-      alert("Message sent successfully");
+      toast.success("Message sent successfully");
       setFormData({ fname: "", phone: "", message: "" });
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("Error sending message. Please try again later.");
+      toast.error("Error sending message. Please try again later.");
+    } finally {
+      setLoading(false); // Set loading state to false after message is sent or an error occurs
     }
   };
 
@@ -38,8 +44,8 @@ function Contact() {
             <img src={profilePic} alt="Profile" />
           </div>
           <p>
-            Hello, I'm Omprakah Gupta a professional painter and have 8 years
-            of experience
+            Hello, I'm Omprakah Gupta a professional painter and have 8 years of
+            experience
           </p>
         </div>
         <div className="call-to-action">
@@ -92,7 +98,20 @@ function Contact() {
             ></textarea>
           </div>
           <button type="submit" className="bg-danger text-light">
-            Send message
+            {loading ? ( // Display loader if loading is true
+              <>
+                <div className="loader-in-contact">
+                <ThreeDots
+                  color="white"
+                  height={25}
+                  width={25}
+                  visible={true}
+                  
+                /></div>
+              </>
+            ) : (
+              "Send message"
+            )}
           </button>
         </form>
       </div>
