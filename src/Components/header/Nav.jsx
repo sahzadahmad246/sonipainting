@@ -87,8 +87,8 @@ function Nav() {
                     Logout <MdLogout size={20} className="ps-1" />
                   </NavLink>
                 ) : (
-                  <NavLink className="nav-item" to="/admin/login">
-                    Login as admin
+                  <NavLink className="nav-item" to="/admin">
+                    Admin dashboard
                   </NavLink>
                 )}
               </li>

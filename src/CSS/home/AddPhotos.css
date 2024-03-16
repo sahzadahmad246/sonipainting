@@ -100,6 +100,8 @@
 
 /* css for uploadedphotos component */
 .image-container {
+  display: flex;
+  justify-content: center;
   height: 100%;
   padding: 40px 0px ;
   display: grid;
@@ -109,6 +111,9 @@
   grid-template-columns: repeat(5, calc((100% - 120px) / 5)); /* Adjusted column width */
 }
 
+.image-container .loader{
+
+}
 .image-box{
   width: 200px;
   border-top-left-radius: 10px;
@@ -206,7 +211,7 @@
     padding-left: 25px;
     background: #ecf0f3;
     grid-template-columns: repeat(2, calc((100% - 70px) / 2));
-    border: 1px solid red; /* Adjusted column width */
+
   }
   
   .image-box{

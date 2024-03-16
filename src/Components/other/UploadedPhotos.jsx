@@ -15,11 +15,14 @@ const UploadedPhotos = () => {
     const fetchImages = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("https://sonipainting-backend.onrender.com/get-images", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "https://sonipainting-backend.onrender.com/get-images",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setImages(response.data);
         setLoading(false);
       } catch (error) {
@@ -64,7 +67,16 @@ const UploadedPhotos = () => {
     <div className="image-container">
       {loading ? (
         <div className="loader">
-          <ThreeDots color="#000000" height={50} width={50} />
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#FF0000"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
         </div>
       ) : (
         images.map((imageName, index) => (
@@ -85,10 +97,7 @@ const UploadedPhotos = () => {
       )}
       {showDeleteConfirmation && (
         <div className="confirmation-popup">
-          <AiOutlineDelete
-            size={35}
-            className="ps-1 my-2  border-circle"
-          />
+          <AiOutlineDelete size={35} className="ps-1 my-2  border-circle" />
           <p>Are you sure you want to delete this image?</p>
           <div className="confirmation-popup-button">
             <button
