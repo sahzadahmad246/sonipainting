@@ -40,6 +40,8 @@ function MessagesComponent() {
             className="loader"
           />
         </div>
+      ) : messages.length === 0 ? (
+        <div className="no-messages">No messages found</div>
       ) : (
         <ul>
           {messages.map((message) => (

@@ -11,27 +11,6 @@ import Reviews from "../other/Reviews";
 import Gallery from "./Gallery";
 
 function Home() {
-  const [firstImages, setFirstImages] = useState([]);
-  const [previewImage, setPreviewImage] = useState(null);
-
-  // useEffect(() => {
-  //   const detectMobileDevice = () => {
-  //     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-  //       navigator.userAgent
-  //     );
-  //   };
-
-  //   const initialSlice = detectMobileDevice() ? 5 : 7;
-  //   setFirstImages(images.slice(0, initialSlice));
-  // }, []);
-
-  // const handleImageClick = (imageUrl) => {
-  //   setPreviewImage(imageUrl);
-  // };
-
-  // const handleClosePreview = () => {
-  //   setPreviewImage(null);
-  // };
   return (
     <>
       <div className="landing">
@@ -62,10 +41,9 @@ function Home() {
                 </span>
               </div>
               <div className="btn">
-                <button className="bg-danger text-light">Get Quote</button>
-                <button className="border border-danger text-danger ">
-                  Learn More
-                </button>
+                <NavLink className="bg-danger text-light button" to="/contact">
+                  Get Quote
+                </NavLink>
               </div>
             </div>
           </div>

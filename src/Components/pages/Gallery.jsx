@@ -4,7 +4,8 @@ import "../../CSS/home/Gallery.css";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 
-const Gallery = ({ displayCount }) => { // Receive displayCount prop
+const Gallery = ({ displayCount }) => {
+  // Receive displayCount prop
   const [previewImage, setPreviewImage] = useState(null);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,11 +15,13 @@ const Gallery = ({ displayCount }) => { // Receive displayCount prop
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://sonipainting-backend.onrender.com/get-images", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+          "https://sonipainting-backend.onrender.com/get-images",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setImages(response.data);
         setLoading(false);
       } catch (error) {
@@ -37,7 +40,7 @@ const Gallery = ({ displayCount }) => { // Receive displayCount prop
   const handleClosePreview = () => {
     setPreviewImage(null);
   };
-  
+
   return (
     <div className="gallery-div">
       <div className="gallery-title">
@@ -48,18 +51,33 @@ const Gallery = ({ displayCount }) => { // Receive displayCount prop
       <div className="gallery-main">
         {loading ? (
           <div className="loader">
-            <ThreeDots color="#000000" height={50} width={50} />
+            <ThreeDots
+              color="red"
+              height={100}
+              width={100}
+              visible={true}
+              className="loader"
+            />
           </div>
         ) : (
-          images.slice(0, displayCount).map((imageName, index) => ( // Slice the images array
-            <div className="gallery-image" key={index}>
-              <img
-                src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
-                alt={`Image ${index}`}
-                onClick={() => handleImageClick(`https://sonipainting-backend.onrender.com/images/${imageName}`)}
-              />
-            </div>
-          ))
+          images.slice(0, displayCount).map(
+            (
+              imageName,
+              index // Slice the images array
+            ) => (
+              <div className="gallery-image" key={index}>
+                <img
+                  src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
+                  alt={`Image ${index}`}
+                  onClick={() =>
+                    handleImageClick(
+                      `https://sonipainting-backend.onrender.com/images/${imageName}`
+                    )
+                  }
+                />
+              </div>
+            )
+          )
         )}
       </div>
       {previewImage && (

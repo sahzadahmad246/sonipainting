@@ -27,14 +27,11 @@
 }
 
 .services-boxes {
-  width: 100%;
-
-
-  margin: 30px 0px;
+  width: 95%;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 items for big screens */
   gap: 20px;
-  justify-content: center;
+  padding-left: 25px;
   margin: 30px 0;
   
 }
@@ -99,6 +96,8 @@
     justify-content: center;
     margin: 10px auto;
     flex-direction: column;
+    padding-left: 0px;
+
   }
   .services-boxes .services-box {
     min-height: 100px;

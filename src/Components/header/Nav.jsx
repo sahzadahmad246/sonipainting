@@ -40,11 +40,11 @@ function Nav() {
   };
 
   return (
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand font-weight-bold" to="#">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        <NavLink className="navbar-brand font-weight-bold logo" to="/">
           Soni Painting
-        </a>
+        </NavLink>
         <button
           class="navbar-toggler"
           type="button"

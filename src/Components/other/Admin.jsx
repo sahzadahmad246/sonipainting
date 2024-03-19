@@ -9,6 +9,7 @@ import { fetchUserData } from "../../store/authSlice";
 import { ThreeDots } from "react-loader-spinner";
 import { clearToken } from "../../store/authSlice";
 import MessagesComponent from "../pages/Messages";
+import ReviewsInAdmin from "./ReviewsInAdmin";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const [showAddPhotos, setShowAddPhotos] = useState(true); // State to control rendering of AddPhotos component
+  const [showReviews, setShowReviews] = useState(false); // State to control rendering of ReviewsInAdmin component
 
   useEffect(() => {
     const isAuthenticated = !!localStorage.getItem("token");
@@ -84,19 +86,34 @@ const Admin = () => {
           </div>
           <div className="admin-options">
             <button
-              onClick={() => setShowAddPhotos(true)}
+              onClick={() => {
+                setShowAddPhotos(true);
+                setShowReviews(false);
+              }}
               className={showAddPhotos ? "active" : ""}
             >
               Add Photos
             </button>
             <button
-              onClick={() => setShowAddPhotos(false)}
-              className={!showAddPhotos ? "active" : ""}
+              onClick={() => {
+                setShowAddPhotos(false);
+                setShowReviews(false);
+              }}
+              className={!showAddPhotos && !showReviews ? "active" : ""}
             >
               Messages
             </button>
+            <button
+              onClick={() => {
+                setShowAddPhotos(false);
+                setShowReviews(true);
+              }}
+              className={showReviews ? "active" : ""}
+            >
+              Reviews
+            </button>
           </div>
-          {showAddPhotos ? <AddPhotos /> : <MessagesComponent />}
+          {showAddPhotos ? <AddPhotos /> : showReviews ? <ReviewsInAdmin /> : <MessagesComponent />}
         </div>
       ) : (
         <NavLink to="/admin/login">Login</NavLink>

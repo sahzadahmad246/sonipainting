@@ -178,7 +178,6 @@ justify-content: center;
     overflow-y: auto;
     scrollbar-width: none;
     scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
-    border: 1px solid red;
   }
   
   .preview {
@@ -186,7 +185,6 @@ justify-content: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     margin: 10px;
-    border: 1px solid red;
   }
   
   .preview img {
@@ -194,7 +192,6 @@ justify-content: center;
     height: auto;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border: 1px solid red;
   }
   
   .preview span {
