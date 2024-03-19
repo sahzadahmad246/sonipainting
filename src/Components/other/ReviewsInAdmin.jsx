@@ -26,24 +26,7 @@ const ReviewsInAdmin = ({ onReply }) => {
     setReplyText(event.target.value);
   };
 
-  const handleReplySubmit = async (reviewId) => {
-    try {
-      const response = await fetch(`http://localhost:5000/reviews/${reviewId}/reply`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ reply: replyText }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to add reply");
-      }
-      // If successful, clear the reply text field
-      setReplyText("");
-      // You may also want to update the UI to reflect the new reply
-    } catch (error) {
-      console.error("Error adding reply:", error);
-    }
+  const handleReplySubmit = () => {
   };
   
 
