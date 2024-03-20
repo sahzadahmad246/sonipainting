@@ -26,12 +26,8 @@ const ReviewsInAdmin = ({ onReply }) => {
     setReplyText(event.target.value);
   };
 
-<<<<<<< HEAD
   const handleReplySubmit = async (reviewId) => {
     console.log("hello")
-=======
-  const handleReplySubmit = () => {
->>>>>>> 97096ad99b3a6eb063b2c76d65eec800380be630
   };
   
 
