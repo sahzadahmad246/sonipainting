@@ -1,0 +1,57 @@
+.reply-to-review-main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three items per row */
+    gap: 20px; /* Gap between grid items */
+    margin: 30px;
+}
+
+.reply-to-review {
+    border: 1px solid rgb(189, 188, 188);
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 250px;
+    position: relative;
+}
+
+.reply-input {
+    position: absolute;
+    bottom: 0;
+    width: 92%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reply-input input {
+    width: 70%;
+    padding: 3px 5px;
+    outline: none;
+    border: 1px solid rgb(172, 171, 171);
+    border-radius: 6px;
+}
+
+.reply-input button {
+    width: 20%;
+    border: none;
+    outline: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 767px) {
+    .reply-to-review-main {
+        grid-template-columns: repeat(1, 1fr); 
+        margin: 20px;
+    }
+
+    .reply-to-review {
+        min-height: unset;
+        position: unset;
+    }
+
+    .reply-input {
+        position: unset;
+        bottom: unset;
+        width: 100%;
+    }
+}
