@@ -27,7 +27,7 @@ const ReviewsInAdmin = ({ onReply }) => {
   };
 
   const handleReplySubmit = async (reviewId) => {
-    
+    console.log("hello")
   };
   
 
