@@ -75,7 +75,8 @@ const DisplayReviews = () => {
             <div className="name-icon">
               <FaRegUserCircle size={25} /> <p className="ps-2">{review.name}</p>
             </div>
-            {/* <p>Rating: {review.rating}</p> */}
+            
+            {/* Display rating */}
             <div className="star-rating">
               {[...Array(5)].map((_, i) => (
                 <FaStar
@@ -86,7 +87,17 @@ const DisplayReviews = () => {
                 />
               ))}
             </div>
+            {/* Display review */}
             <p className="fs-6 text-secondary">{review.review}</p>
+            {/* Display replies */}
+            <div className="replies">
+              {review.replies && review.replies.map((reply, replyIndex) => (
+                <div key={replyIndex} className="reply">
+                  <p>{reply.text}</p>
+                  <p>{reply.date}</p>
+                </div>
+              ))}
+            </div>
           </li>
         ))}
       </ul>

@@ -29,6 +29,7 @@ const ReviewsInAdmin = ({ onReply }) => {
         console.error("Error fetching reviews:", error);
         setIsLoading(false);
       }
+      
     };
 
     fetchReviews();
@@ -76,6 +77,7 @@ const ReviewsInAdmin = ({ onReply }) => {
     }
   };
 
+ 
   if (isLoading) {
     return (
       <div className="loader-container">
@@ -112,6 +114,16 @@ const ReviewsInAdmin = ({ onReply }) => {
             ))}
           </div>
           <p className="fs-6 text-secondary">{review.review}</p>
+          {/* Display replies */}
+          <div className="replies">
+            {review.replies && review.replies.map((reply, index) => (
+              <div key={index} className="reply">
+                <p>{reply.text}</p>
+                <p>{reply.date}</p>
+              </div>
+            ))}
+          </div>
+          {/* Reply input */}
           <div className="reply-input">
             <input
               type="text"
