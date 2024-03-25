@@ -36,6 +36,16 @@ const DisplayReviews = () => {
 
   const [hover, setHover] = useState(null);
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day < 10 ? "0" + day : day}/${
+      month < 10 ? "0" + month : month
+    }/${year}`;
+  };
+
   return (
     <div className="display-reviews-main">
       <div className="average-rating">
@@ -92,12 +102,11 @@ const DisplayReviews = () => {
                     />
                   ))}
                 </div>
-                {/* Display review */}
+
                 <p className="fs-6 text-secondary ">{review.review}</p>
               </div>
             </div>
 
-            {/* Display replies */}
             <div className="replies mt-2">
               {review.replies && review.replies.length > 0 && (
                 <div className="name-icon">
@@ -110,7 +119,7 @@ const DisplayReviews = () => {
                 review.replies.map((reply, replyIndex) => (
                   <div key={replyIndex} className="reply">
                     <p className="text-secondary">{reply.text}</p>
-                    <p className="text-secondary" >{reply.date}</p>
+                    <p className="text-secondary fs-6">{formatDate(reply.date)}</p>
                   </div>
                 ))}
             </div>
