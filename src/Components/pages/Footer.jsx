@@ -40,22 +40,22 @@ function Footer() {
             </h1>
             <ul>
               <li>
-                <NavLink>
+                <NavLink to="https://www.facebook.com/people/Soni-Painting-Works/100064304703683/">
                   <i class="fa-brands fa-x-twitter"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink>
+                <NavLink to="https://www.instagram.com/sonipaintin?igsh=ZDNyOGxoaG9tMTBk">
                   <i class="fa-brands fa-instagram"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink>
+                <NavLink to="https://wa.me/+919022846640">
                   <i class="fa-brands fa-whatsapp"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink>
+                <NavLink to="https://www.facebook.com/people/Soni-Painting-Works/100064304703683/">
                   <i class="fa-brands fa-facebook"></i>
                 </NavLink>
               </li>

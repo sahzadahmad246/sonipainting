@@ -13,14 +13,8 @@ const Gallery = ({ displayCount }) => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://sonipainting-backend.onrender.com/get-images",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          "https://sonipainting-backend.onrender.com/get-images"
         );
         setImages(response.data);
         setLoading(false);
@@ -40,7 +34,7 @@ const Gallery = ({ displayCount }) => {
   const handleClosePreview = () => {
     setPreviewImage(null);
   };
-
+  console.log(images);
   return (
     <div className="gallery-div">
       <div className="gallery-title">
@@ -60,24 +54,19 @@ const Gallery = ({ displayCount }) => {
             />
           </div>
         ) : (
-          images.slice(0, displayCount).map(
-            (
-              imageName,
-              index // Slice the images array
-            ) => (
-              <div className="gallery-image" key={index}>
-                <img
-                  src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
-                  alt={`Image ${index}`}
-                  onClick={() =>
-                    handleImageClick(
-                      `https://sonipainting-backend.onrender.com/images/${imageName}`
-                    )
-                  }
-                />
-              </div>
-            )
-          )
+          images.slice(0, displayCount).map((imageName, index) => (
+            <div className="gallery-image" key={index}>
+              <img
+                src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
+                alt={`Image ${index}`}
+                onClick={() =>
+                  handleImageClick(
+                    `https://sonipainting-backend.onrender.com/images/${imageName}`
+                  )
+                }
+              />
+            </div>
+          ))
         )}
       </div>
       {previewImage && (

@@ -53,16 +53,14 @@ const DisplayReviews = () => {
                 <div className="rating-stars">
                   <span>{rating}</span>
                 </div>
-                <div className="rating-bar">
-                  <div
-                    className="rating-bar-fill"
-                    style={{
-                      width: `${
-                        ((ratingsCount[rating] || 0) / numberOfReviews) * 100
-                      }%`,
-                    }}
-                  ></div>
-                </div>
+                <div
+                  className="rating-bar"
+                  style={{
+                    height: `${
+                      ((ratingsCount[rating] || 0) / numberOfReviews) * 100
+                    }%`,
+                  }}
+                ></div>
               </li>
             ))}
           </ul>
@@ -73,30 +71,48 @@ const DisplayReviews = () => {
         {reviews.map((review, index) => (
           <li key={index}>
             <div className="name-icon">
-              <FaRegUserCircle size={25} /> <p className="ps-2">{review.name}</p>
+              <FaRegUserCircle size={25} />{" "}
+              <p className="ps-2">{review.name}</p>
             </div>
-            
-            {/* Display rating */}
-            <div className="star-rating">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className="star"
-                  size={15}
-                  color={i < review.rating ? "#fdc107" : "#e4e5e9"}
-                />
-              ))}
-            </div>
-            {/* Display review */}
-            <p className="fs-6 text-secondary">{review.review}</p>
-            {/* Display replies */}
-            <div className="replies">
-              {review.replies && review.replies.map((reply, replyIndex) => (
-                <div key={replyIndex} className="reply">
-                  <p>{reply.text}</p>
-                  <p>{reply.date}</p>
+            <div className=" d-flex position-relative">
+              {review.replies && review.replies.length > 0 && (
+                <div
+                  className="replies-line bg-secondary"
+                  style={{ height: `${review.rating * 20}%` }}
+                ></div>
+              )}
+              <div className="rating-review">
+                <div className="star-rating">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar
+                      key={i}
+                      className="star"
+                      size={15}
+                      color={i < review.rating ? "#fdc107" : "#e4e5e9"}
+                    />
+                  ))}
                 </div>
-              ))}
+                {/* Display review */}
+                <p className="fs-6 text-secondary ">{review.review}</p>
+              </div>
+            </div>
+
+            {/* Display replies */}
+            <div className="replies mt-2">
+              {review.replies && review.replies.length > 0 && (
+                <div className="name-icon">
+                  <FaRegUserCircle size={25} />{" "}
+                  <p className="ps-2">Soni Painting</p>
+                </div>
+              )}
+
+              {review.replies &&
+                review.replies.map((reply, replyIndex) => (
+                  <div key={replyIndex} className="reply">
+                    <p className="text-secondary">{reply.text}</p>
+                    <p className="text-secondary" >{reply.date}</p>
+                  </div>
+                ))}
             </div>
           </li>
         ))}

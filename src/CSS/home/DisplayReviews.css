@@ -34,18 +34,19 @@
 .average-rating-right ul {
   width: 100%;
 }
-/* Add this to your CSS file */
-/* Add this to your CSS file */
+
 .rating-list {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+ 
 }
 .rating-stars {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  
 }
 
 .rating-stars span {
@@ -53,8 +54,8 @@
 }
 
 .rating-bar {
-  width: 300px; /* Adjust width as needed */
-  height: 10px; /* Adjust height as needed */
+  width: 300px; 
+  height: 10px; 
   background-color: #dcd9d9;
   border-radius: 10px;
 }
@@ -62,7 +63,7 @@
 .rating-bar-fill {
   height: 100%;
   border-radius: 10px;
-  background-color: #007bff; /* Blue color for the fill */
+  background-color: #007bff; 
 }
 
 .all-reviews {
@@ -77,12 +78,31 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
 }
 
 .all-reviews li .name-icon {
   display: flex;
   align-items: center;
 }
+.rating-review{
+  margin-left: 30px;
+}
+.replies-line{
+  position: absolute;
+  width: 1px;
+  left: 7px;
+  background: rgb(165, 165, 165);
+  margin: 5px;
+}
+.replies .reply{
+  margin-left: 30px;
+}
+/* .all-reviews .star-rating{
+  width: 100%;
+  margin-left: 33px;
+} */
 
 @media only screen and (max-width: 767px) {
   .display-reviews-main {
@@ -123,7 +143,7 @@
   .average-rating-right ul {
     width: 100%;
   }
-  /* Add this to your CSS file */
+  
   /* Add this to your CSS file */
   .rating-list {
     display: flex;

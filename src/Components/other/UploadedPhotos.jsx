@@ -48,7 +48,7 @@ const UploadedPhotos = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.delete(
-        `https://sonipainting-backend.onrender.com/delete-image/${imageNameToDelete}`,
+        `https://sonipainting-backend.onrender.com/${imageNameToDelete}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

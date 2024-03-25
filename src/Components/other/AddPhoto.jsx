@@ -17,21 +17,13 @@ const AddPhotos = () => {
     fileInput.click();
   };
 
-  // Function to truncate file name
-  const truncateFileName = (name, maxLength) => {
-    if (name.length > maxLength) {
-      return name.substring(0, maxLength) + "...";
-    }
-    return name;
-  };
-
   const handleUpload = async () => {
     const formData = new FormData();
     selectedFiles.forEach((file) => {
       formData.append("images", file);
     });
 
-    // Retrieve token from localStorage
+    // Retrieving token from localStorage
     const token = localStorage.getItem("token");
 
     try {
@@ -80,7 +72,6 @@ const AddPhotos = () => {
             {selectedFiles.map((file, index) => (
               <div key={index} className="preview">
                 <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
-                {/* <span>{truncateFileName(file.name, 10)}</span> */}
               </div>
             ))}
           </div>
