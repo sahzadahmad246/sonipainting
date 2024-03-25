@@ -3,9 +3,12 @@ import { GrGallery } from "react-icons/gr";
 import "../../CSS/home/AddPhotos.css";
 import axios from "axios";
 import UploadedPhotos from "./UploadedPhotos";
+import { toast } from "react-toastify";
+import { ThreeDots } from "react-loader-spinner";
 
 const AddPhotos = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -23,10 +26,11 @@ const AddPhotos = () => {
       formData.append("images", file);
     });
 
-    // Retrieving token from localStorage
+    
     const token = localStorage.getItem("token");
 
     try {
+      setUploading(true); 
       const response = await axios.post(
         "https://sonipainting-backend.onrender.com/upload",
         formData,
@@ -38,11 +42,15 @@ const AddPhotos = () => {
         }
       );
 
-      console.log(response.data.message); // Log success message
-      // Clear selected files after successful upload
+      console.log(response.data.message); 
+      toast.success("Photos uploaded successfully"); 
+      
       setSelectedFiles([]);
     } catch (error) {
       console.error("Error uploading images:", error);
+      toast.error("Failed to upload photos"); 
+    } finally {
+      setUploading(false); 
     }
   };
 
@@ -67,7 +75,15 @@ const AddPhotos = () => {
               <span>Select Photos</span>
             </label>
           </div>
-          <button onClick={handleUpload} className="upload-btn bg-danger">Upload Files</button>
+          <button onClick={handleUpload} className="upload-btn bg-danger">
+            {uploading ? (
+              <div className="login-loader">
+                <ThreeDots height={10} width={30} color="#fff" />{" "}
+              </div>
+            ) : (
+              "Upload Files"
+            )}
+          </button>
           <div className="preview-container">
             {selectedFiles.map((file, index) => (
               <div key={index} className="preview">
@@ -75,9 +91,7 @@ const AddPhotos = () => {
               </div>
             ))}
           </div>
-          
         </div>
-        
       </div>
       <UploadedPhotos />
     </>

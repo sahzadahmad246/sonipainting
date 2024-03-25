@@ -8,7 +8,7 @@ const DisplayReviews = () => {
   const [numberOfReviews, setNumberOfReviews] = useState(0);
   const [ratingsCount, setRatingsCount] = useState({});
   const [error, setError] = useState(null);
-
+console.log(ratingsCount)
   useEffect(() => {
     Promise.all([
       fetch("https://sonipainting-backend.onrender.com/reviews"),
@@ -63,14 +63,16 @@ const DisplayReviews = () => {
                 <div className="rating-stars">
                   <span>{rating}</span>
                 </div>
-                <div
-                  className="rating-bar"
-                  style={{
-                    height: `${
-                      ((ratingsCount[rating] || 0) / numberOfReviews) * 100
-                    }%`,
-                  }}
-                ></div>
+                <div className="rating-bar">
+                  <div
+                    className="rating-bar-fill"
+                    style={{
+                      width: `${
+                        ((ratingsCount[rating] || 0) / numberOfReviews) * 100
+                      }%`,
+                    }}
+                  ></div>
+                </div>
               </li>
             ))}
           </ul>

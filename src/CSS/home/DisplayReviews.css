@@ -10,6 +10,7 @@
 }
 
 .average-rating-box {
+  
 }
 
 .average-rating-left {
@@ -33,6 +34,7 @@
 }
 .average-rating-right ul {
   width: 100%;
+  
 }
 
 .rating-list {
@@ -40,13 +42,13 @@
   justify-content: center;
   align-items: center;
   width: 100%;
- 
+  
 }
 .rating-stars {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  
+  /* border: 1px solid red; */
 }
 
 .rating-stars span {
@@ -58,6 +60,7 @@
   height: 10px; 
   background-color: #dcd9d9;
   border-radius: 10px;
+  /* border: 1px solid red; */
 }
 
 .rating-bar-fill {
@@ -78,8 +81,7 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  padding-bottom: 10px;
-  border-bottom: 1px solid gray;
+  
 }
 
 .all-reviews li .name-icon {
@@ -91,13 +93,14 @@
 }
 .replies-line{
   position: absolute;
-  width: 1px;
+  width: 2px;
   left: 7px;
   background: rgb(165, 165, 165);
   margin: 5px;
 }
 .replies .reply{
   margin-left: 30px;
+  color: rgb(165, 165, 165);
 }
 /* .all-reviews .star-rating{
   width: 100%;
