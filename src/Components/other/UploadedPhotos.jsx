@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios"; // Comment out axios import
 import { ThreeDots } from "react-loader-spinner";
 import "../../CSS/home/AddPhotos.css";
 import profile from "../../images/office.png";
 import { AiOutlineDelete } from "react-icons/ai";
+import image1 from "../../images/image1.jpg";
+import image2 from "../../images/image2.jpg";
+import image3 from "../../images/image3.jpg";
+import image4 from "../../images/image4.jpg";
+import image5 from "../../images/image5.jpg";
+import image6 from "../../images/image6.jpg";
 
 const UploadedPhotos = () => {
   const [images, setImages] = useState([]);
@@ -11,27 +17,35 @@ const UploadedPhotos = () => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [imageNameToDelete, setImageNameToDelete] = useState("");
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          "https://sonipainting-backend.onrender.com/get-images",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setImages(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching images:", error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchImages = async () => {
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       const response = await axios.get(
+  //         "https://sonipainting-backend.onrender.com/get-images",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setImages(response.data);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching images:", error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchImages();
+  //   fetchImages();
+  // }, []);
+
+  useEffect(() => {
+    // Simulating API call delay with setTimeout
+    setTimeout(() => {
+      setImages([image1, image2, image3, image4, image5, image6]);
+      setLoading(false);
+    }, 1000); // Adjust timeout as needed
   }, []);
 
   const handleDelete = (imageName) => {
@@ -45,22 +59,10 @@ const UploadedPhotos = () => {
   };
 
   const confirmDelete = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      await axios.delete(
-        `https://sonipainting-backend.onrender.com/${imageNameToDelete}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setImages(images.filter((img) => img !== imageNameToDelete));
-      setShowDeleteConfirmation(false);
-      setImageNameToDelete("");
-    } catch (error) {
-      console.error("Error deleting image:", error);
-    }
+    // Simulating delete operation
+    setImages(images.filter((img) => img !== imageNameToDelete));
+    setShowDeleteConfirmation(false);
+    setImageNameToDelete("");
   };
 
   return (
@@ -82,7 +84,7 @@ const UploadedPhotos = () => {
         images.map((imageName, index) => (
           <div className="image-box" key={index}>
             <img
-              src={`https://sonipainting-backend.onrender.com/images/${imageName}`}
+              src={imageName} // Change source to the imported local image
               alt={`Image ${index}`}
             />
             <button
