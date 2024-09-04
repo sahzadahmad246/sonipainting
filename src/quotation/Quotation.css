@@ -1,0 +1,197 @@
+.quotation-main {
+  border: 1px solid #ddd;
+  width: 80%;
+  margin: 20px auto;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.quotation-right-header {
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background: #efefef;
+  border-radius: 12px 12px 0 0;
+  display: inline-block;
+}
+
+.quotation-form {
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+.quotation-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.quotation-row .MuiTextField-root {
+  flex: 1;
+}
+
+.item-details {
+  padding: 0px 2rem;
+}
+
+.quotation-item {
+  width: 100%;
+  padding: 0rem 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.item-description {
+  flex: 2;
+}
+
+.item-rate {
+  flex: 0.7;
+}
+
+.item-description,
+.item-rate,
+.remove-button {
+  min-height: 55px;
+}
+
+.remove-button {
+  flex: 0.4;
+  border: 1px solid #fbf7fc;
+  background: #fff;
+  color: purple;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.remove-button:hover {
+  background-color: #f0f0f0;
+  color: #a32d7d;
+}
+
+.quote-button {
+  width: 100%;
+  padding: 0rem 2rem;
+  margin: 2rem 0rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item-button {
+  width: 45%;
+  padding: 0.75rem;
+  background: #fff;
+  color: #FF004D;
+  border: 1px solid #FF004D;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.item-button:hover {
+  background-color: #fdfafb;
+  color: #FF004D;
+}
+
+.quotation-button {
+  width: 45%;
+  padding: 0.75rem;
+  outline: none;
+  border: none;
+  background: #FF004D;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.quotation-button:hover {
+  background-color: #e60548;
+}
+
+.discount-details {
+  padding: 0.5rem 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.discount-details .MuiTextField-root,
+.discount-details .MuiFormControl-root {
+  flex: 1;
+  min-width: 150px;
+}
+
+.discount-details .MuiTextField-root {
+  margin-right: 1rem;
+}
+
+@media (max-width: 768px) {
+  .quotation-main {
+    width: 97%;
+  }
+
+  .quotation-form {
+    padding: 1rem;
+  }
+
+  .quotation-row {
+    flex-direction: column;
+    gap: 0rem;
+  }
+
+  .item-details {
+    padding: 0px 1rem;
+  }
+
+  .quotation-item {
+    flex-direction: column;
+    gap: 0rem;
+    padding: 0rem 1rem;
+  }
+
+  .item-rate,
+  .remove-button {
+    width: 100%;
+  }
+
+  .remove-button {
+    margin-top: 1rem;
+    border: 1px solid purple;
+  }
+
+  .quote-button {
+    width: 100%;
+    padding: 0rem 1rem;
+    margin: 2rem 0rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item-button {
+    width: 100%;
+    margin: 0.5rem 0px;
+  }
+
+  .quotation-button {
+    width: 100%;
+    margin: 0.5rem 0px;
+  }
+  .discount-details {
+    flex-direction: column; /* Stack elements vertically */
+    gap: 0rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .discount-details .MuiTextField-root,
+  .discount-details .MuiFormControl-root {
+    width: 100%;
+    margin-right: 0;
+    flex: 0.4;
+  }
+}

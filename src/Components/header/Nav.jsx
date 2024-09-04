@@ -1,42 +1,59 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link, NavLink } from "react-router-dom"; // If you're using React Router for navigation
+import { useNavigate, NavLink } from "react-router-dom";
 import "../../CSS/header/Nav.css";
 import "../../CSS/home/Admin.css";
 import { MdLogout } from "react-icons/md";
-import { clearToken } from "../../store/authSlice";
+import { getUser, logout } from "../../actions/userAction";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Avatar,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  CircularProgress,
+} from "@mui/material";
+
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoggedin, setIsLoggedin] = useState(false);
-  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
+
+  const { user, loading } = useSelector((state) => state.user);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedin(true);
-    }
-  }, []);
+    dispatch(getUser());
+  }, [dispatch]);
 
-  const handleLogout = async () => {
-    try {
-      dispatch(clearToken());
-      navigate("/");
-    } catch (error) {
-      console.error("Failed to logout:", error);
-    }
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const confirmLogout = () => {
-    setShowLogoutConfirmation(true);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
-  const cancelLogout = () => {
-    setShowLogoutConfirmation(false);
+  const handleLogoutDialogOpen = () => {
+    setLogoutDialogOpen(true);
   };
-  const handleLogoutConfirmed = () => {
-    setShowLogoutConfirmation(false);
-    handleLogout();
+
+  const handleLogoutDialogClose = () => {
+    setLogoutDialogOpen(false);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleMenuClose();
+    handleLogoutDialogClose();
+    dispatch(getUser());
+    navigate("/login");
+    
   };
 
   return (
@@ -46,7 +63,7 @@ function Nav() {
           Soni Painting
         </NavLink>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -54,44 +71,85 @@ function Nav() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-          <form class="d-flex" role="search">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <NavLink class="nav-link active" aria-current="page" to="/">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+          <form className="d-flex" role="search">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink className="nav-link active" aria-current="page" to="/">
                   Home
                 </NavLink>
               </li>
-              <li class="nav-item">
-                <NavLink class="nav-link" to="/services">
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/services">
                   Services
                 </NavLink>
               </li>
-
-              <li class="nav-item">
-                <NavLink class="nav-link" to="/gallery">
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/gallery">
                   Gallery
                 </NavLink>
               </li>
-              <li class="nav-item">
-                <NavLink class="nav-link" to="/contact">
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/contact">
                   Contact
                 </NavLink>
               </li>
-              <li className="nav-item">
-                {isLoggedin ? (
-                  <NavLink className="nav-item" to="/admin" onClick={confirmLogout}>
-                  Admin dashboard 
+              {user && user.isAdmin === true ? (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/dashboard">
+                    Dashboard
                   </NavLink>
-                ) : (
-                  <NavLink className="nav-item" to="/admin/login">
-                    Login as admin
+                </li>
+              ) : null}
+
+              {user ? (
+                <li className="nav-item">
+                  <Button onClick={handleAvatarClick}>
+                    {loading ? (
+                      <CircularProgress size={24} />
+                    ) : (
+                      <Avatar src={user.avatar?.url} alt={user.name} />
+                    )}
+                  </Button>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <MenuItem disabled>
+                      <Typography variant="body1" style={{ color: "black" }}>
+                        {user.name}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem disabled>
+                      <Typography variant="body2" style={{ color: "black" }}>
+                        {user.email}
+                      </Typography>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogoutDialogOpen}>
+                      <MdLogout style={{ marginRight: 8 }} />
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </li>
+              ) : (
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/login">
+                    Login
                   </NavLink>
-                )}
-              </li>
+                </li>
+              )}
             </ul>
           </form>
           <div>
@@ -100,28 +158,30 @@ function Nav() {
             </NavLink>
           </div>
         </div>
-        {showLogoutConfirmation && (
-          <div className="confirmation-popup">
-            <MdLogout size={30} className="ps-1 my-2  border-circle" />
-
-            <p>Are you sure you want to logout?</p>
-            <div className="confirmation-popup-button ">
-              <button
-                onClick={cancelLogout}
-                className="me-4 border border-danger text-danger"
-              >
-                No
-              </button>
-              <button
-                onClick={handleLogoutConfirmed}
-                className=" bg-danger text-white"
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Logout Confirmation Dialog */}
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={handleLogoutDialogClose}
+        aria-labelledby="logout-dialog-title"
+        aria-describedby="logout-dialog-description"
+      >
+        <DialogTitle id="logout-dialog-title">Confirm Logout</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="logout-dialog-description">
+            Are you sure you want to log out?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleLogoutDialogClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleLogout} color="primary" autoFocus>
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </nav>
   );
 }

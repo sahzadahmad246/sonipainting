@@ -11,11 +11,11 @@ import Nav from "./Components/header/Nav.jsx";
 import Services from "./Components/pages/Services.jsx";
 import Callback from "./Components/pages/Callback.jsx";
 import Admin from "./Components/other/Admin.jsx";
-import Login from "./Components/other/Login.jsx";
 import Register from "./Components/other/Register.jsx";
 import { Provider } from "react-redux";
-import store from "./store/store.js";
-
+import store from "./store.js";
+import LoginGoogle from "./Components/other/LoginGoogle.jsx";
+import QuotationReview from "./quotation/QuotationReview.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,18 +46,22 @@ const router = createBrowserRouter([
         element: <Callback />,
       },
       {
-        path: "/admin/login",
-        element: <Login />,
+        path: "/login",
+        element: <LoginGoogle />,
       },
       {
         path: "/admin/register",
         element: <Register />,
       },
+      {
+        path: "/dashboard",
+        element: <Admin />,
+      },
+      {
+        path: "/quotation/review",
+        element: <QuotationReview />,
+      },
     ],
-  },
-  {
-    path: "/admin",
-    element: <Admin />,
   },
 ]);
 

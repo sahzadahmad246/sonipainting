@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import painterImage from "../../images/painter1.jpg";
 import Services from "../pages/Services";
 // import { Gallery, images } from "./Gallery";
-import Login from "../other/Login";
+
 import "../../CSS/home/home.css";
 import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
