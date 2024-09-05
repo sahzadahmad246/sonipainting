@@ -16,7 +16,7 @@ const LoginGoogle = () => {
   // Function to handle Google login
   const handleGoogleLogin = () => {
    
-    window.location.href = "https://sonipainting-backend.onrender.com/auth/google"; 
+    window.location.href = "http://localhost:5000/auth/google"; 
   };
 
   return (
