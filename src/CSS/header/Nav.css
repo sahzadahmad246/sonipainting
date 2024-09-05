@@ -7,6 +7,9 @@ header {
 .navbar {
   background: #ecf0f3;
 }
+.logo img{
+ width: 40px;
+}
 ul li {
   list-style: none;
   padding-right: 40px;

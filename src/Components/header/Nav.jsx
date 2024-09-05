@@ -5,6 +5,7 @@ import "../../CSS/header/Nav.css";
 import "../../CSS/home/Admin.css";
 import { MdLogout } from "react-icons/md";
 import { getUser, logout } from "../../actions/userAction";
+import logo from "../../images/logo.png";
 import {
   Button,
   Menu,
@@ -53,14 +54,13 @@ function Nav() {
     handleLogoutDialogClose();
     dispatch(getUser());
     navigate("/login");
-    
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <NavLink className="navbar-brand font-weight-bold logo" to="/">
-          Soni Painting
+          <img src={logo} alt="logo"/> Soni Painting
         </NavLink>
         <button
           className="navbar-toggler"
