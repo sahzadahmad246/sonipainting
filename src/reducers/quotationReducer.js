@@ -5,6 +5,7 @@ const initialState = {
 };
 
 const quotationReducer = (state = initialState, action) => {
+    
   switch (action.type) {
     case SAVE_QUOTATION_DATA:
       return {
