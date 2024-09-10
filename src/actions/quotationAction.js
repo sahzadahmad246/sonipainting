@@ -1,15 +1,129 @@
-import { SAVE_QUOTATION_DATA } from "../constants/quotationConstants";
+import axios from "axios";
 
-// Action creator to save quotation data
-export const saveQuotationData = (data) => {
-  return (dispatch) => {
-    // Save data to session storage
-    sessionStorage.setItem("quotationData", JSON.stringify(data));
+import {
+  SAVE_QUOTATION_DATA,
+  SEND_QUOTATION_REQUEST,
+  SEND_QUOTATION_SUCCESS,
+  SEND_QUOTATION_FAIL,
+  UPDATE_QUOTATION_REQUEST,
+  UPDATE_QUOTATION_SUCCESS,
+  UPDATE_QUOTATION_FAIL,
+  DELETE_QUOTATION_REQUEST,
+  DELETE_QUOTATION_SUCCESS,
+  DELETE_QUOTATION_FAIL,
+  GET_QUOTATION_BY_ID_REQUEST,
+  GET_QUOTATION_BY_ID_SUCCESS,
+  GET_QUOTATION_BY_ID_FAIL,
+  GET_ALL_QUOTATIONS_REQUEST,
+  GET_ALL_QUOTATIONS_SUCCESS,
+  GET_ALL_QUOTATIONS_FAIL,
+} from "../constants/quotationConstants";
 
-    // Dispatch the action
+// sendQuotationData action
+export const sendQuotationData = (quotationDetails) => async (dispatch) => {
+  try {
+    dispatch({ type: SEND_QUOTATION_REQUEST });
+    const { data } = await axios.post(
+      "http://localhost:5000/quotations",
+      quotationDetails,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log("Success:", data); // Add this log
+    dispatch({ type: SEND_QUOTATION_SUCCESS, payload: data });
+  } catch (error) {
     dispatch({
-      type: SAVE_QUOTATION_DATA,
-      payload: data,
+      type: SEND_QUOTATION_FAIL,
+      payload: error.response?.data?.message || error.message,
     });
-  };
+  }
+};
+
+// Update Quotation Action
+export const updateQuotation = (id, updatedData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_QUOTATION_REQUEST });
+    
+    // Convert FormData to a plain object for logging
+    const formDataObject = {};
+    updatedData.forEach((value, key) => {
+      formDataObject[key] = value;
+    });
+    
+    console.log(formDataObject);
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    };
+
+    const { data } = await axios.put(
+      `http://localhost:5000/quotations/${id}`,
+      updatedData,
+      config
+    );
+
+    dispatch({ type: UPDATE_QUOTATION_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_QUOTATION_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+
+
+// Delete Quotation Action
+export const deleteQuotation = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_QUOTATION_REQUEST });
+    const { data } = await axios.delete(
+      `http://localhost:5000/quotations/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({ type: DELETE_QUOTATION_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: DELETE_QUOTATION_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Get Quotation by ID Action
+export const getQuotationById = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_QUOTATION_BY_ID_REQUEST });
+    const { data } = await axios.get(`http://localhost:5000/quotations/${id}`, {
+      withCredentials: true,
+    });
+    dispatch({ type: GET_QUOTATION_BY_ID_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_QUOTATION_BY_ID_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
+
+// Get All Quotations Action
+export const getAllQuotations = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ALL_QUOTATIONS_REQUEST });
+    const { data } = await axios.get("http://localhost:5000/quotations", {
+      withCredentials: true,
+    });
+    dispatch({ type: GET_ALL_QUOTATIONS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_ALL_QUOTATIONS_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
 };

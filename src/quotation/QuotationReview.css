@@ -1,8 +1,12 @@
+.alert {
+  width: 50%;
+  margin: 0px auto;
+}
 .review-main {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 30px;
+  padding: 10px 30px;
 }
 .quotation-content {
   padding: 20px;
@@ -149,20 +153,66 @@
   justify-content: center;
   align-items: center;
 }
-.review-main .action-button {
-  width: 30%;
+.action-button {
+  width: 40%;
+  padding: 0px 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.sign-consent {
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  padding: 10px 20px;
+  width: 100%;
+}
+.sign-consent-1 {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  justify-content: center;
+  
+}
+.sign-consent .sign-button {
+  width: 100%;
+  background: #ff004d;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 5px;
+  margin: 10px auto;
+  border-radius: 15px;
+}
+.sign-button.disabled {
+  background: #fd8bad;
+}
+.download-share button {
+  width: 50%;
   flex-direction: column;
   display: flex;
   padding: 10px;
+  align-items: center;
 }
-.review-main .action-button button {
-  border: none;
+.download-share {
+  width: 100%;
+  margin: 30px 0px;
+
+  display: flex;
+  justify-content: space-between;
+}
+.download-share button {
   outline: none;
-  padding: 10px;
-  margin: 15px 5px;
-  border-radius: 10px;
+  border: none;
+  border-radius: 15px;
+  width: 45%;
 }
+
 @media (max-width: 768px) {
+  .alert {
+    width: 100%;
+    margin: 0px auto;
+  }
   .review-main {
     padding: 0px;
   }
@@ -170,7 +220,7 @@
     width: 90%;
     padding: 5px;
     margin: 10px auto;
-    height: 455px;
+    height: 460px;
     border: 1px solid #ddd;
   }
 
@@ -218,7 +268,7 @@
     font-size: 7px;
   }
   .client-details-box1 {
-    font-size: 7px;
+    font-size: 5px;
   }
   .gray-line {
     height: 0.5px;
@@ -226,7 +276,7 @@
     margin: 7px auto;
   }
   .item-box {
-    height: 32%;
+    height: 30%;
   }
   .item-header,
   .item-content,
@@ -265,11 +315,22 @@
     flex-direction: column;
     display: flex;
     margin: 10px auto;
+    padding: 0px 0px;
   }
-  .review-main .action-button button {
-    border: none;
-    outline: none;
-    padding: 10px;
-    margin: 10px 5px;
+  .sign-consent {
+    font-size: 14px;
+    padding: 10px 5px;
+  }
+  .download-share {
+    width: 100%;
+    margin: 30px 0px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  .download-share button {
+    width: 100%;
+    margin: 7px 0px;
   }
 }

@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import store from "./store.js";
 import LoginGoogle from "./Components/other/LoginGoogle.jsx";
 import QuotationReview from "./quotation/QuotationReview.jsx";
+import SignQuotation from "./quotation/SignQuotation.jsx";
+import TakeSign from "./quotation/TakeSign.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,8 +60,16 @@ const router = createBrowserRouter([
         element: <Admin />,
       },
       {
-        path: "/quotation/review",
+        path: "/quotation/review/:id",
         element: <QuotationReview />,
+      },
+      {
+        path: "/sign/quotation/:id",
+        element: <SignQuotation />,
+      },
+      {
+        path: "/taking/sign-of/:id",
+        element: <TakeSign />,
       },
     ],
   },

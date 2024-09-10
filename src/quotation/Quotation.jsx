@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Quotation.css";
 import {
   TextField,
@@ -7,14 +7,21 @@ import {
   Select,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from "@mui/material";
-import { saveQuotationData } from "../actions/quotationAction";
-import { useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom';
-
+import { sendQuotationData } from "../actions/quotationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SEND_QUOTATION_RESET } from "../constants/quotationConstants";
 const Quotation = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, success, quotation, error } = useSelector(
+    (state) => state.sendQuotationData
+  );
+
   const [items, setItems] = useState([
     { id: Date.now(), description: "", rate: "" },
   ]);
@@ -24,9 +31,19 @@ const Quotation = () => {
     address: "",
   });
   const [discount, setDiscount] = useState({
-    type: "amount", // 'amount' or 'percent'
+    type: "amount",
     value: 0,
   });
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+    if (success) {
+      navigate(`/quotation/review/${quotation._id}`);
+      dispatch({ type: SEND_QUOTATION_RESET });
+    }
+  }, [error, success, navigate]);
 
   // Add new item form
   const addItemForm = () => {
@@ -43,23 +60,35 @@ const Quotation = () => {
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+
+    // Check for empty fields
+    if (!client.name || !client.number || !client.address) {
+      toast.error("Please fill out all client details.");
+      return;
+    }
+    for (let item of items) {
+      if (!item.description || !item.rate) {
+        toast.error("Please fill out all item details.");
+        return;
+      }
+    }
+
     const subtotal = items.reduce(
       (total, item) => total + parseFloat(item.rate || 0),
       0
     );
-  
+
     let discountAmount = 0;
     if (discount.type === "percent") {
       discountAmount = (discount.value / 100) * subtotal;
     } else {
       discountAmount = parseFloat(discount.value || 0);
     }
-  
+
     // Round the discount and grand total
     discountAmount = Math.round(discountAmount);
     const grandTotal = Math.round(subtotal - discountAmount);
-  
+
     const formData = {
       client: client,
       items: items.map((item) => ({
@@ -70,11 +99,9 @@ const Quotation = () => {
       discount: discountAmount,
       grandTotal: grandTotal,
     };
-  
-    dispatch(saveQuotationData(formData));
-    navigate("/quotation/review");
+
+    dispatch(sendQuotationData(formData));
   };
-  
 
   // Handle client input change
   const handleClientChange = (e) => {
@@ -112,6 +139,7 @@ const Quotation = () => {
 
   return (
     <div className="quotation-main">
+      <ToastContainer />
       <Typography className="quotation-right-header" variant="outlined">
         Make a Quotation
       </Typography>
@@ -126,6 +154,7 @@ const Quotation = () => {
             margin="normal"
             variant="outlined"
             name="name"
+            required
             value={client.name}
             onChange={handleClientChange}
           />
@@ -135,6 +164,7 @@ const Quotation = () => {
             margin="normal"
             variant="outlined"
             name="number"
+            required
             value={client.number}
             onChange={handleClientChange}
           />
@@ -145,6 +175,7 @@ const Quotation = () => {
           margin="normal"
           variant="outlined"
           name="address"
+          required
           value={client.address}
           onChange={handleClientChange}
         />
@@ -160,6 +191,7 @@ const Quotation = () => {
             margin="normal"
             variant="outlined"
             className="item-description"
+            required
             value={item.description}
             onChange={(e) =>
               handleInputChange(item.id, "description", e.target.value)
@@ -170,6 +202,7 @@ const Quotation = () => {
             type="number"
             margin="normal"
             variant="outlined"
+            required
             className="item-rate"
             value={item.rate}
             onChange={(e) => handleInputChange(item.id, "rate", e.target.value)}
@@ -217,7 +250,7 @@ const Quotation = () => {
         </button>
 
         <button onClick={handleSubmit} className="quotation-button">
-          Submit Quotation
+          {loading ? <CircularProgress size={24} /> : "Submit Quotation"}
         </button>
       </div>
     </div>

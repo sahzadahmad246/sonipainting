@@ -7,13 +7,14 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAIL,
+ 
 } from "../constants/userConstant";
 
 //  getUser action
 export const getUser = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
-    const { data } = await axios.get("https://sonipainting-backend.onrender.com/login/success", {
+    const { data } = await axios.get("http://localhost:5000/login/success", {
       withCredentials: true,
     });
     dispatch({ type: GET_USER_SUCCESS, payload: data.user });
@@ -40,3 +41,4 @@ export const logout = () => async (dispatch) => {
     });
   }
 };
+
