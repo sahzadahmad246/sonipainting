@@ -4,6 +4,10 @@ import {
   SEND_QUOTATION_SUCCESS,
   SEND_QUOTATION_FAIL,
   SEND_QUOTATION_RESET,
+  UPDATE_SIGNATURE_REQUEST,
+  UPDATE_SIGNATURE_SUCCESS,
+  UPDATE_SIGNATURE_FAIL,
+  UPDATE_SIGNATURE_RESET,
   UPDATE_QUOTATION_REQUEST,
   UPDATE_QUOTATION_SUCCESS,
   UPDATE_QUOTATION_FAIL,
@@ -30,6 +34,37 @@ const initialQuotationState = {
   quotation: null,
   error: null,
   success: false,
+};
+
+// Update Quotation Reducer
+export const updateQuotationReducer = (
+  state = initialQuotationState,
+  action
+) => {
+  switch (action.type) {
+    case UPDATE_QUOTATION_REQUEST:
+      return { ...state, loading: true, success: false };
+    case UPDATE_QUOTATION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        quotation: action.payload,
+        success: true,
+      };
+    case UPDATE_QUOTATION_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+        success: false,
+      };
+    case UPDATE_QUOTATION_RESET:
+      return {
+        ...initialQuotationState, // Reset the state back to initial values
+      };
+    default:
+      return state;
+  }
 };
 
 // Send Quotation Reducer
@@ -60,29 +95,29 @@ export const sendQuotationReducer = (state = initialQuotationState, action) => {
   }
 };
 
-// Update Quotation Reducer
-export const updateQuotationReducer = (
+// Update Signature Reducer
+export const updateSignatureReducer = (
   state = initialQuotationState,
   action
 ) => {
   switch (action.type) {
-    case UPDATE_QUOTATION_REQUEST:
+    case UPDATE_SIGNATURE_REQUEST:
       return { ...state, loading: true, success: false };
-    case UPDATE_QUOTATION_SUCCESS:
+    case UPDATE_SIGNATURE_SUCCESS:
       return {
         ...state,
         loading: false,
         quotation: action.payload,
         success: true,
       };
-    case UPDATE_QUOTATION_FAIL:
+    case UPDATE_SIGNATURE_FAIL:
       return {
         ...state,
         loading: false,
         error: action.payload,
         success: false,
       };
-    case UPDATE_QUOTATION_RESET:
+    case UPDATE_SIGNATURE_RESET:
       return {
         ...initialQuotationState, // Reset the state back to initial values
       };

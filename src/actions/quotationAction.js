@@ -1,14 +1,15 @@
 import axios from "axios";
 
 import {
-  SAVE_QUOTATION_DATA,
   SEND_QUOTATION_REQUEST,
   SEND_QUOTATION_SUCCESS,
   SEND_QUOTATION_FAIL,
+  UPDATE_SIGNATURE_REQUEST,
+  UPDATE_SIGNATURE_SUCCESS,
+  UPDATE_SIGNATURE_FAIL,
   UPDATE_QUOTATION_REQUEST,
   UPDATE_QUOTATION_SUCCESS,
   UPDATE_QUOTATION_FAIL,
-  DELETE_QUOTATION_REQUEST,
   DELETE_QUOTATION_SUCCESS,
   DELETE_QUOTATION_FAIL,
   GET_QUOTATION_BY_ID_REQUEST,
@@ -40,28 +41,21 @@ export const sendQuotationData = (quotationDetails) => async (dispatch) => {
   }
 };
 
-// Update Quotation Action
+// Update Quotation Action 
 export const updateQuotation = (id, updatedData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_QUOTATION_REQUEST });
-    
-    // Convert FormData to a plain object for logging
-    const formDataObject = {};
-    updatedData.forEach((value, key) => {
-      formDataObject[key] = value;
-    });
-    
-    console.log(formDataObject);
 
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
       withCredentials: true,
     };
 
+    // Send updated quotation data to the backend
     const { data } = await axios.put(
-      `http://localhost:5000/quotations/${id}`,
+      `http://localhost:5000/update/quotation/${id}`,
       updatedData,
       config
     );
@@ -75,7 +69,33 @@ export const updateQuotation = (id, updatedData) => async (dispatch) => {
   }
 };
 
+// Update Signature Action
+export const updateSignature = (id, updatedData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_SIGNATURE_REQUEST });
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json", // Set the header to JSON
+      },
+      withCredentials: true,
+    };
+
+    // Send the signature and other data as JSON
+    const { data } = await axios.put(
+      `http://localhost:5000/update/sign/${id}`,
+      updatedData,
+      config
+    );
+
+    dispatch({ type: UPDATE_SIGNATURE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_SIGNATURE_FAIL,
+      payload: error.response?.data?.message || error.message,
+    });
+  }
+};
 
 // Delete Quotation Action
 export const deleteQuotation = (id) => async (dispatch) => {

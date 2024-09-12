@@ -1,14 +1,31 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import "./TakeSign.css";
-import { useDispatch } from "react-redux";
-import { updateQuotation } from "../actions/quotationAction";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSignature } from "../actions/quotationAction";
 import { useParams } from "react-router-dom";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const TakeSign = () => {
   const signatureRef = useRef(null);
   const dispatch = useDispatch();
-  const { id } = useParams(); // Get the id from params
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { error, loading, success } = useSelector(
+    (state) => state.updatedSignatureData
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+
+    if (success) {
+      toast.success("Signature updated successfully!");
+      navigate(`/sign/quotation/${id}`);
+    }
+  }, [error, success]);
 
   const clearSignature = () => {
     signatureRef.current.clear();
@@ -16,31 +33,22 @@ const TakeSign = () => {
 
   const saveSignature = async () => {
     if (signatureRef.current.isEmpty()) {
-      console.log("No signature drawn");
+      toast.warn("No signature drawn"); // Display warning notification
       return;
     }
 
     try {
-      const signatureImage = signatureRef.current.getTrimmedCanvas().toDataURL(); // Get signature data URL
+      const signatureImage = signatureRef.current
+        .getTrimmedCanvas()
+        .toDataURL(); // Get signature as base64
 
-      // Convert base64 to Blob
-      const response = await fetch(signatureImage);
-      const blob = await response.blob();
-      const file = new File([blob], "signature.png", { type: "image/png" });
-
-      const formData = new FormData();
-      formData.append("signature", file);
-
-      // Debugging FormData contents
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}:`, value);
-      }
-
-      // Dispatch the update action
-      await dispatch(updateQuotation(id, formData));
-      console.log("Signature saved and dispatched successfully.");
+      // Dispatch the update action with the base64 signature
+      await dispatch(updateSignature(id, { signature: signatureImage }));
     } catch (err) {
-      console.error("Error converting signature to file or dispatching action:", err);
+      console.error(
+        "Error converting signature to base64 or dispatching action:",
+        err
+      );
     }
   };
 
@@ -57,11 +65,21 @@ const TakeSign = () => {
         <button
           className="border border-success text-success"
           onClick={clearSignature}
+          disabled={loading} // Disable button when loading
         >
           Clear
         </button>
-        <button className="bg-success text-white" onClick={saveSignature}>
-          Save
+
+        <button
+          className="bg-success text-white"
+          onClick={saveSignature}
+          disabled={loading} // Disable button when loading
+        >
+          {loading ? (
+            <CircularProgress size={24} style={{ color: "white" }} />
+          ) : (
+            "Save"
+          )}
         </button>
       </div>
     </div>

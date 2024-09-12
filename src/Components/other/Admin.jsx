@@ -9,6 +9,7 @@ import { ThreeDots } from "react-loader-spinner";
 import MessagesComponent from "../pages/Messages";
 import ReviewsInAdmin from "./ReviewsInAdmin";
 import Quotation from "../../quotation/Quotation";
+import QuotationTab from "../../quotation/QuotationTab";
 
 const Admin = () => {
   const dispatch = useDispatch();
@@ -90,7 +91,7 @@ const Admin = () => {
           ) : showMessages ? (
             <MessagesComponent />
           ) : showQuotation ? (
-            <Quotation />
+            <QuotationTab/>
           ) : null}
         </div>
       )}

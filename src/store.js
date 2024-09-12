@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer } from "./reducers/userReducer";
 import {
-  
   sendQuotationReducer,
-  updateQuotationReducer,
+  updateSignatureReducer,
   deleteQuotationReducer,
   getQuotationByIdReducer,
   getAllQuotationsReducer,
+  updateQuotationReducer,
 } from "./reducers/quotationReducer";
 
 const initialState = {};
@@ -15,7 +15,8 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     sendQuotationData: sendQuotationReducer,
-    updateQuotationData: updateQuotationReducer,
+    updatedSignatureData: updateSignatureReducer,
+    updatedQuotationData: updateQuotationReducer,
     deleteQuotationData: deleteQuotationReducer,
     getQuotationById: getQuotationByIdReducer,
     allQuotations: getAllQuotationsReducer,

@@ -1,0 +1,23 @@
+.quotationTab{
+    border: 1px solid #ddd;
+    width: 90%;
+    /* height: 70vh; */
+    margin: 20px auto;
+    padding: 10px;
+    border-radius: 10px;
+}
+.buttonContainer button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .buttonContainer .active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .contentContainer {
+    margin-top: 20px;
+  }
+  

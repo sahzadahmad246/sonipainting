@@ -13,11 +13,14 @@ import { getQuotationById } from "../actions/quotationAction";
 import Loader from "../Components/header/Loader";
 import TakeSign from "./TakeSign";
 import { useNavigate } from "react-router-dom";
+import { FaCheckCircle } from "react-icons/fa";
+
 const SignQuotation = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, quotation } = useSelector((state) => state.getQuotationById);
+
   const pdfRef = useRef();
   const [isChecked, setIsChecked] = useState(false);
 
@@ -29,20 +32,37 @@ const SignQuotation = () => {
       dispatch(getQuotationById(id));
     }
   }, [dispatch, id]);
-  console.log("quotaion is here ", quotation);
-  // Get current date and time
+
   const now = new Date();
   const formattedDate = format(now, "dd - MMMM - yyyy h:mm a");
 
   const handleGeneratePDF = () => {
     const input = pdfRef.current;
-    html2canvas(input, { scale: 2 }).then((canvas) => {
+    setTimeout(() => {
+      html2canvas(input, { scale: 4 }).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
+        pdf.save("quotation.pdf");
+      });
+    }, 4000);
+  };
+
+  const handleGenerateImage = () => {
+    const input = pdfRef.current;
+
+    html2canvas(input, { scale: 4 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4");
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight, "", "FAST");
-      pdf.save("quotation.pdf");
+
+      // Create a link element to download the image
+      const link = document.createElement("a");
+      link.href = imgData;
+      link.download = "quotation.png";
+
+      // Trigger the download
+      link.click();
     });
   };
 
@@ -60,6 +80,9 @@ const SignQuotation = () => {
 
   const navigateToTakeSign = () => {
     navigate(`/taking/sign-of/${quotation._id}`);
+  };
+  const handleNavigate = () => {
+    navigate("/");
   };
   return (
     <>
@@ -102,11 +125,11 @@ const SignQuotation = () => {
                 <span>Date: {formattedDate}</span>
               </div>
               <div className="client-details-box">
-                <span>Client Name: {quotation?.client.name}</span>
-                <span>Client No: {quotation?.client.number}</span>
+                <span>Client Name: {quotation?.client?.name || "N/A"}</span>
+                <span>Client No: {quotation?.client?.number || "N/A"}</span>
               </div>
               <div className="client-details-box1 ps-0.5">
-                <span>Address: {quotation?.client.address}</span>
+                <span>Address: {quotation?.client?.address}</span>
               </div>
             </div>
             <div className="gray-line"></div>
@@ -165,52 +188,98 @@ const SignQuotation = () => {
             </div>
             <div className="signature-box">
               <div className="soni-sign">
-                <img src="" alt="sign" />
+                {quotation?.clientSignature?.length > 0 && (
+                  <img
+                    src={quotation.clientSignature[0].url}
+                    alt="Client Signature"
+                    className="signature-img"
+                  />
+                )}
                 <span>for SONI PAINTING</span>
               </div>
               <div className="client-sign">
-                <img src="" alt="sign" />
-                <span>for {quotation?.client.name}</span>
+                {quotation?.clientSignature?.length > 0 && (
+                  <img
+                    src={quotation.clientSignature[0].url}
+                    alt="Client Signature"
+                    className="signature-img"
+                  />
+                )}
+
+                <span>for {quotation?.client?.name}</span>
               </div>
             </div>
           </div>
-          <div className="action-button ">
-            <div className="sign-consent">
-              <div className="sign-consent-1">
-                <input
-                  type="checkbox"
-                  id="consent"
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                />
-                <label htmlFor="consent" className="ps-2">
-                  I have read all the details carefully and I agree with it
-                </label>
+          <div className="action-button">
+            {quotation?.clientSignature?.length === 0 ? (
+              <div className="sign-consent">
+                <div className="sign-consent-1">
+                  <input
+                    type="checkbox"
+                    id="consent"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
+                  <label htmlFor="consent" className="ps-2">
+                    I have read all the details carefully and I agree with it
+                  </label>
+                </div>
+                <button
+                  className={`sign-button ${isChecked ? "" : "disabled"}`}
+                  disabled={!isChecked}
+                  onClick={navigateToTakeSign}
+                >
+                  Sign It
+                </button>
               </div>
-              <button
-                className={`sign-button ${isChecked ? "" : "disabled"}`}
-                disabled={!isChecked}
-                onClick={navigateToTakeSign}
-              >
-                Sign It
-              </button>
-            </div>
+            ) : (
+              <div className="signed-successful">
+                <div className="signed-successful-top">
+                  <span>
+                    <FaCheckCircle size={80} color="green" />{" "}
+                  </span>
+                  <h1 className=" fs-5 mt-2">
+                    Congratulation! The deal is done 🤝
+                  </h1>
+                  <span className="text-secondary fs-6">
+                    what's next? call us or wait for our call
+                  </span>
+                </div>
+              </div>
+            )}
 
-            {quotation?.clientSignature && (
-              <div className="download-share">
-                <button
-                  className="bg-success text-white"
-                  onClick={handleGeneratePDF}
-                >
-                  Download PDF
-                </button>
-                <button
-                  className="border border-success bg-white text-success"
-                  onClick={handleWhatsAppShare}
-                >
-                  Share on Whatsapp
-                </button>
-              </div>
+            {quotation?.clientSignature?.length > 0 && (
+              <>
+                <div className="download-share">
+                  <button
+                    className="bg-success text-white"
+                    onClick={handleGeneratePDF}
+                  >
+                    Download PDF
+                  </button>
+                  <button
+                    className="border border-success bg-white text-success"
+                    onClick={handleWhatsAppShare}
+                  >
+                    Share on Whatsapp
+                  </button>
+                </div>
+                <div className="download-share">
+                  <button
+                    className="bg-danger text-white"
+                    onClick={handleGenerateImage}
+                  >
+                    Download PNG
+                  </button>
+                  <button
+                    to="/"
+                    className="border border-danger bg-white text-danger"
+                    onClick={handleNavigate}
+                  >
+                    Go to home
+                  </button>
+                </div>
+              </>
             )}
           </div>
         </div>
