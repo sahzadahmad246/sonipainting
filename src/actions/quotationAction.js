@@ -10,6 +10,7 @@ import {
   UPDATE_QUOTATION_REQUEST,
   UPDATE_QUOTATION_SUCCESS,
   UPDATE_QUOTATION_FAIL,
+  DELETE_QUOTATION_REQUEST,
   DELETE_QUOTATION_SUCCESS,
   DELETE_QUOTATION_FAIL,
   GET_QUOTATION_BY_ID_REQUEST,
@@ -25,7 +26,7 @@ export const sendQuotationData = (quotationDetails) => async (dispatch) => {
   try {
     dispatch({ type: SEND_QUOTATION_REQUEST });
     const { data } = await axios.post(
-      "http://localhost:5000/quotations",
+      "https://sonipainting-backend.onrender.com/quotations",
       quotationDetails,
       {
         withCredentials: true,
@@ -55,7 +56,7 @@ export const updateQuotation = (id, updatedData) => async (dispatch) => {
 
     // Send updated quotation data to the backend
     const { data } = await axios.put(
-      `http://localhost:5000/update/quotation/${id}`,
+      `https://sonipainting-backend.onrender.com/update/quotation/${id}`,
       updatedData,
       config
     );
@@ -83,7 +84,7 @@ export const updateSignature = (id, updatedData) => async (dispatch) => {
 
     // Send the signature and other data as JSON
     const { data } = await axios.put(
-      `http://localhost:5000/update/sign/${id}`,
+      `https://sonipainting-backend.onrender.com/update/sign/${id}`,
       updatedData,
       config
     );
@@ -102,7 +103,7 @@ export const deleteQuotation = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_QUOTATION_REQUEST });
     const { data } = await axios.delete(
-      `http://localhost:5000/quotations/${id}`,
+      `https://sonipainting-backend.onrender.com/quotations/${id}`,
       {
         withCredentials: true,
       }
@@ -120,7 +121,7 @@ export const deleteQuotation = (id) => async (dispatch) => {
 export const getQuotationById = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_QUOTATION_BY_ID_REQUEST });
-    const { data } = await axios.get(`http://localhost:5000/quotations/${id}`, {
+    const { data } = await axios.get(`https://sonipainting-backend.onrender.com/quotations/${id}`, {
       withCredentials: true,
     });
     dispatch({ type: GET_QUOTATION_BY_ID_SUCCESS, payload: data });
@@ -136,7 +137,7 @@ export const getQuotationById = (id) => async (dispatch) => {
 export const getAllQuotations = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_QUOTATIONS_REQUEST });
-    const { data } = await axios.get("http://localhost:5000/quotations", {
+    const { data } = await axios.get("https://sonipainting-backend.onrender.com/quotations", {
       withCredentials: true,
     });
     dispatch({ type: GET_ALL_QUOTATIONS_SUCCESS, payload: data });

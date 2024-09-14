@@ -221,6 +221,19 @@
   width: 45%;
 }
 
+.reject{
+  border: 1px solid #ddd;
+  width: 100%;
+  margin: 30px 0px;
+  border-radius: 15px;
+  padding: 10px 15px;
+}
+.rejection-reason{
+  margin: 15px 0px;
+}
+.reject-button{
+  margin: 10px 0px;
+}
 @media (max-width: 768px) {
   .alert {
     width: 100%;

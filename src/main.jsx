@@ -18,6 +18,7 @@ import LoginGoogle from "./Components/other/LoginGoogle.jsx";
 import QuotationReview from "./quotation/QuotationReview.jsx";
 import SignQuotation from "./quotation/SignQuotation.jsx";
 import TakeSign from "./quotation/TakeSign.jsx";
+import UpdateQuotation from "./quotation/UpdateQuotation.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: "/taking/sign-of/:id",
         element: <TakeSign />,
+      },
+      {
+        path: "/edit/quotation/:id",
+        element: <UpdateQuotation />,
       },
     ],
   },

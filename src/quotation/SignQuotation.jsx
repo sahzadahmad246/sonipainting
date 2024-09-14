@@ -14,19 +14,31 @@ import Loader from "../Components/header/Loader";
 import TakeSign from "./TakeSign";
 import { useNavigate } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
-
+import { Select, MenuItem, TextField, Button } from "@mui/material";
+import { updateQuotation } from "../actions/quotationAction";
+import { toast } from "react-toastify";
+import CircularProgress from "@mui/material/CircularProgress";
+import { FaTimesCircle } from "react-icons/fa";
+import PdfPreview from "./PDFPreview";
 const SignQuotation = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, quotation } = useSelector((state) => state.getQuotationById);
-
+  const {
+    loading: updateLoading,
+    success,
+    error,
+  } = useSelector((state) => state.updatedQuotationData);
   const pdfRef = useRef();
   const [isChecked, setIsChecked] = useState(false);
+  const [selectedReason, setSelectedReason] = useState("");
+  const [customReason, setCustomReason] = useState("");
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
+
   useEffect(() => {
     if (id) {
       dispatch(getQuotationById(id));
@@ -52,16 +64,11 @@ const SignQuotation = () => {
 
   const handleGenerateImage = () => {
     const input = pdfRef.current;
-
     html2canvas(input, { scale: 4 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
-
-      // Create a link element to download the image
       const link = document.createElement("a");
       link.href = imgData;
       link.download = "quotation.png";
-
-      // Trigger the download
       link.click();
     });
   };
@@ -70,217 +77,234 @@ const SignQuotation = () => {
     const clientNumber = `+91${quotation?.client.number}`;
     const message = `Hello ${quotation?.client.name} 😊, greeting from Soni Painting. Here's our quotation, please review and sign it.`;
     const url = `https://sonipainting.com/sign/quotation`;
-
     const whatsappURL = `https://wa.me/${clientNumber}?text=${encodeURIComponent(
       `${message}\n\n${url}`
     )}`;
-
     window.open(whatsappURL, "_blank");
   };
 
   const navigateToTakeSign = () => {
     navigate(`/taking/sign-of/${quotation._id}`);
   };
+
   const handleNavigate = () => {
     navigate("/");
   };
+
+  const handleReject = () => {
+    let rejectionReason = selectedReason;
+    if (selectedReason === "Other") {
+      rejectionReason = customReason;
+    }
+    const dataToBeUpdated = {
+      status: "rejected",
+      rejectionReason,
+    };
+    dispatch(updateQuotation(id, dataToBeUpdated));
+  };
+  useEffect(() => {
+    if (success) {
+      toast.success("You rejected this quotation");
+      console.log("Success:", success);
+    }
+    if (error) {
+      toast.error("Failed to reject this quotation");
+      console.log("Error:", error);
+    }
+  }, [success, error]);
+
   return (
     <>
-      {" "}
       {loading ? (
         <Loader />
       ) : (
         <div className="review-main">
-          <div ref={pdfRef} className="quotation-content">
-            <div className="company-details">
-              <div className="company-details-1">
-                <img src={logo} alt="Company Logo" />
-                <p>Soni Painting</p>
-              </div>
-              <div className="company-details-left">
-                <div className="whatsapp-box">
-                  <FaWhatsapp className="whatsapp-icon" />
-                  <div className="ps-1 whatsapp-number">9022846640</div>
-                </div>
-                <div className="call-box">
-                  <IoIosCall className="call-icon" />
-                  <div className="ps-1 call-number">8452085416</div>
-                </div>
-              </div>
-            </div>
-            <div className="company-address text-center">
-              <span>
-                Hiranandani Estate, Patlipada, Ghodbunder Road Thane West-
-                400607
-              </span>
-            </div>
-            <div className="blue-line">
-              <span className="line"></span>
-              <span className="px-2">Quotation</span>
-              <span className="line"></span>
-            </div>
-            <div className="client-details-boxes">
-              <div className="client-details-box">
-                <span>Id.: #{quotation?._id}</span>
-                <span>Date: {formattedDate}</span>
-              </div>
-              <div className="client-details-box">
-                <span>Client Name: {quotation?.client?.name || "N/A"}</span>
-                <span>Client No: {quotation?.client?.number || "N/A"}</span>
-              </div>
-              <div className="client-details-box1 ps-0.5">
-                <span>Address: {quotation?.client?.address}</span>
-              </div>
-            </div>
-            <div className="gray-line"></div>
-            <div className="item-box">
-              <div className="item-header">
-                <span className="sr-no">Sr No.</span>
-                <span className="description">Description</span>
-                <span className="rate">Rate</span>
-              </div>
-              {quotation?.items.map((item, index) => (
-                <div key={index} className="item-content">
-                  <span className="sr-no">{index + 1}.</span>
-                  <span className="description">{item.description}</span>
-                  <span className="rate">₹{item.rate}</span>
-                </div>
-              ))}
-            </div>
-            <div className="total-main">
-              <div className="item-total">
-                <span className="null-space"></span>
-                <span className="field-name">Subtotal</span>
-                <span className="field-value">₹{quotation?.subtotal}</span>
-              </div>
-              <div className="item-total">
-                <span className="null-space"></span>
-                <span className="field-name">Discount</span>
-                <span className="field-value">₹{quotation?.discount}</span>
-              </div>
-              <div className="item-total">
-                <span className="null-space"></span>
-                <span className="field-name">Grand Total</span>
-                <span className="field-value">₹{quotation?.grandTotal}</span>
-              </div>
-            </div>
-            <div className="term-and-condition">
-              <h5>Term & Condition</h5>
-              <span>
-                1. Any additional work requested by the customer that is not
-                included in the original scope of work will be priced separately
-                and agreed upon in writing before proceeding.
-              </span>
-              <span>
-                2. The SONI PAINTING WORKS will be responsible for thoroughly
-                cleaning the work area after completion, leaving no mess or
-                debris behind.
-              </span>
-              <span>
-                3. We will provide regular updates on progress and will
-                communicate any delays or changes to the timeline in a timely
-                manner.
-              </span>
-              <span>
-                4. By signing this document, you agree with our terms and
-                conditions.
-              </span>
-            </div>
-            <div className="signature-box">
-              <div className="soni-sign">
-                {quotation?.clientSignature?.length > 0 && (
-                  <img
-                    src={quotation.clientSignature[0].url}
-                    alt="Client Signature"
-                    className="signature-img"
-                  />
-                )}
-                <span>for SONI PAINTING</span>
-              </div>
-              <div className="client-sign">
-                {quotation?.clientSignature?.length > 0 && (
-                  <img
-                    src={quotation.clientSignature[0].url}
-                    alt="Client Signature"
-                    className="signature-img"
-                  />
-                )}
-
-                <span>for {quotation?.client?.name}</span>
-              </div>
-            </div>
-          </div>
+          <PdfPreview
+            pdfRef={pdfRef}
+            quotation={quotation}
+            formattedDate={formattedDate}
+          />
           <div className="action-button">
-            {quotation?.clientSignature?.length === 0 ? (
-              <div className="sign-consent">
-                <div className="sign-consent-1">
-                  <input
-                    type="checkbox"
-                    id="consent"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label htmlFor="consent" className="ps-2">
-                    I have read all the details carefully and I agree with it
-                  </label>
+            {/* Show sign-consent and reject div if clientSignature is 0 and status is not rejected */}
+            {quotation?.clientSignature?.length === 0 &&
+              quotation?.status !== "rejected" && (
+                <div className="sign-consent">
+                  <div className="sign-consent-1">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={isChecked}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor="consent" className="ps-2">
+                      I have read all the details carefully and I agree with it
+                    </label>
+                  </div>
+                  <button
+                    className={`sign-button ${isChecked ? "" : "disabled"}`}
+                    disabled={!isChecked}
+                    onClick={navigateToTakeSign}
+                  >
+                    Sign It
+                  </button>
                 </div>
-                <button
-                  className={`sign-button ${isChecked ? "" : "disabled"}`}
-                  disabled={!isChecked}
-                  onClick={navigateToTakeSign}
+              )}
+
+            {/* Show reject div if clientSignature is 0 */}
+            {quotation?.clientSignature?.length === 0 && (
+              <div className="reject">
+                <p>Reject</p>
+                <div className="rejection-reason">
+                  <Select
+                    value={selectedReason}
+                    onChange={(e) => setSelectedReason(e.target.value)}
+                    displayEmpty
+                    fullWidth
+                  >
+                    <MenuItem value="" disabled>
+                      Select a reason
+                    </MenuItem>
+                    <MenuItem value="Cost">Cost</MenuItem>
+                    <MenuItem value="Scope of Work">Scope of Work</MenuItem>
+                    <MenuItem value="Quality of Materials">
+                      Quality of Materials
+                    </MenuItem>
+                    <MenuItem value="Timeline">Timeline</MenuItem>
+                    <MenuItem value="Previous Experience">
+                      Previous Experience
+                    </MenuItem>
+                    <MenuItem value="Project Requirements">
+                      Project Requirements
+                    </MenuItem>
+                    <MenuItem value="Payment Terms">Payment Terms</MenuItem>
+                    <MenuItem value="Contract Terms">Contract Terms</MenuItem>
+                    <MenuItem value="Competitor Quotes">
+                      Competitor Quotes
+                    </MenuItem>
+                    <MenuItem value="Permits and Regulations">
+                      Permits and Regulations
+                    </MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                  </Select>
+                  {selectedReason === "Other" && (
+                    <TextField
+                      value={customReason}
+                      onChange={(e) => setCustomReason(e.target.value)}
+                      label="Please specify"
+                      fullWidth
+                      margin="normal"
+                    />
+                  )}
+                </div>
+                <Button
+                  variant="contained"
+                  color="error"
+                  className="reject-button"
+                  sx={{ width: "100%", marginY: 2 }}
+                  onClick={handleReject}
+                  disabled={loading}
                 >
-                  Sign It
-                </button>
-              </div>
-            ) : (
-              <div className="signed-successful">
-                <div className="signed-successful-top">
-                  <span>
-                    <FaCheckCircle size={80} color="green" />{" "}
-                  </span>
-                  <h1 className=" fs-5 mt-2">
-                    Congratulation! The deal is done 🤝
-                  </h1>
-                  <span className="text-secondary fs-6">
-                    what's next? call us or wait for our call
-                  </span>
-                </div>
+                  {loading ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    "Reject"
+                  )}
+                </Button>
               </div>
             )}
 
-            {quotation?.clientSignature?.length > 0 && (
-              <>
-                <div className="download-share">
-                  <button
-                    className="bg-success text-white"
-                    onClick={handleGeneratePDF}
-                  >
-                    Download PDF
-                  </button>
-                  <button
-                    className="border border-success bg-white text-success"
-                    onClick={handleWhatsAppShare}
-                  >
-                    Share on Whatsapp
-                  </button>
-                </div>
-                <div className="download-share">
-                  <button
-                    className="bg-danger text-white"
-                    onClick={handleGenerateImage}
-                  >
-                    Download PNG
-                  </button>
-                  <button
-                    to="/"
-                    className="border border-danger bg-white text-danger"
-                    onClick={handleNavigate}
-                  >
-                    Go to home
-                  </button>
-                </div>
-              </>
-            )}
+            {/* Show you rejected message if clientSignature is greater than 0 and status is rejected */}
+            {quotation?.clientSignature?.length > 0 &&
+              quotation?.status === "rejected" && (
+                <>
+                  <div className="signed-successful">
+                    <div className="signed-successful-top">
+                      <span>
+                        <FaTimesCircle size={80} color="red" />
+                      </span>
+                      <h1 className="fs-5 mt-2">
+                        You rejected this quotation ❌
+                      </h1>
+                      <span className="text-secondary fs-6">
+                        What's next? Call us or wait for our call
+                      </span>
+                    </div>
+                  </div>
+                  <div className="sign-consent mt-3">
+                    <div className="sign-consent-1">
+                      <input
+                        type="checkbox"
+                        id="consent"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                      />
+                      <label htmlFor="consent" className="ps-2">
+                        Rejectd it by accidently? Sign it here
+                      </label>
+                    </div>
+                    <button
+                      className={`sign-button ${isChecked ? "" : "disabled"}`}
+                      disabled={!isChecked}
+                      onClick={navigateToTakeSign}
+                    >
+                      Sign It
+                    </button>
+                  </div>
+                </>
+              )}
+
+            {/* Show deal is done and download/share buttons if clientSignature is available */}
+            {quotation?.clientSignature?.length > 0 &&
+              quotation?.status !== "rejected" && (
+                <>
+                  <>
+                    <div className="signed-successful">
+                      <div className="signed-successful-top">
+                        <span>
+                          <FaCheckCircle size={80} color="green" />
+                        </span>
+                        <h1 className="fs-5 mt-2">
+                          Congratulation! The deal is done 🤝
+                        </h1>
+                        <span className="text-secondary fs-6">
+                          What's next? Call us or wait for our call
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                  <>
+                    <div className="download-share">
+                      <Button
+                        className="bg-success text-white"
+                        onClick={handleGeneratePDF}
+                      >
+                        Download PDF
+                      </Button>
+                      <Button
+                        className="border border-success bg-white text-success"
+                        onClick={handleWhatsAppShare}
+                      >
+                        Share on Whatsapp
+                      </Button>
+                    </div>
+                    <div className="download-share">
+                      <Button
+                        className="bg-danger text-white"
+                        onClick={handleGenerateImage}
+                      >
+                        Download PNG
+                      </Button>
+                      <Button
+                        to="/"
+                        className="border border-danger bg-white text-danger"
+                        onClick={handleNavigate}
+                      >
+                        Go to home
+                      </Button>
+                    </div>
+                  </>
+                </>
+              )}
           </div>
         </div>
       )}

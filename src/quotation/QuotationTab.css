@@ -10,6 +10,10 @@
     padding: 10px;
     margin: 5px;
     cursor: pointer;
+    border: 1px solid #007bff;
+    color: #007bff;
+    background: #fff;
+    border-radius: 10px;
   }
   
   .buttonContainer .active {
