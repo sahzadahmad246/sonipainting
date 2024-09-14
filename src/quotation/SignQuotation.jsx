@@ -73,16 +73,6 @@ const SignQuotation = () => {
     });
   };
 
-  const handleWhatsAppShare = () => {
-    const clientNumber = `+91${quotation?.client.number}`;
-    const message = `Hello ${quotation?.client.name} 😊, greeting from Soni Painting. Here's our quotation, please review and sign it.`;
-    const url = `https://sonipainting.com/sign/quotation`;
-    const whatsappURL = `https://wa.me/${clientNumber}?text=${encodeURIComponent(
-      `${message}\n\n${url}`
-    )}`;
-    window.open(whatsappURL, "_blank");
-  };
-
   const navigateToTakeSign = () => {
     navigate(`/taking/sign-of/${quotation._id}`);
   };
@@ -152,65 +142,41 @@ const SignQuotation = () => {
 
             {/* Show reject div if clientSignature is 0 */}
             {quotation?.clientSignature?.length === 0 && (
-              <div className="reject">
-                <p>Reject</p>
-                <div className="rejection-reason">
-                  <Select
-                    value={selectedReason}
-                    onChange={(e) => setSelectedReason(e.target.value)}
-                    displayEmpty
-                    fullWidth
-                  >
-                    <MenuItem value="" disabled>
-                      Select a reason
-                    </MenuItem>
-                    <MenuItem value="Cost">Cost</MenuItem>
-                    <MenuItem value="Scope of Work">Scope of Work</MenuItem>
-                    <MenuItem value="Quality of Materials">
-                      Quality of Materials
-                    </MenuItem>
-                    <MenuItem value="Timeline">Timeline</MenuItem>
-                    <MenuItem value="Previous Experience">
-                      Previous Experience
-                    </MenuItem>
-                    <MenuItem value="Project Requirements">
-                      Project Requirements
-                    </MenuItem>
-                    <MenuItem value="Payment Terms">Payment Terms</MenuItem>
-                    <MenuItem value="Contract Terms">Contract Terms</MenuItem>
-                    <MenuItem value="Competitor Quotes">
-                      Competitor Quotes
-                    </MenuItem>
-                    <MenuItem value="Permits and Regulations">
-                      Permits and Regulations
-                    </MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </Select>
-                  {selectedReason === "Other" && (
-                    <TextField
-                      value={customReason}
-                      onChange={(e) => setCustomReason(e.target.value)}
-                      label="Please specify"
-                      fullWidth
-                      margin="normal"
-                    />
-                  )}
+              <>
+                <div className="signed-successful">
+                  <div className="signed-successful-top">
+                    <span>
+                      <FaTimesCircle size={80} color="red" />
+                    </span>
+                    <h1 className="fs-5 mt-2">
+                      You rejected this quotation ❌
+                    </h1>
+                    <span className="text-secondary fs-6">
+                      What's next? Call us or wait for our call
+                    </span>
+                  </div>
                 </div>
-                <Button
-                  variant="contained"
-                  color="error"
-                  className="reject-button"
-                  sx={{ width: "100%", marginY: 2 }}
-                  onClick={handleReject}
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <CircularProgress size={24} color="inherit" />
-                  ) : (
-                    "Reject"
-                  )}
-                </Button>
-              </div>
+                <div className="sign-consent mt-3">
+                  <div className="sign-consent-1">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={isChecked}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor="consent" className="ps-2">
+                      Rejectd it by accidently? Sign it here
+                    </label>
+                  </div>
+                  <button
+                    className={`sign-button ${isChecked ? "" : "disabled"}`}
+                    disabled={!isChecked}
+                    onClick={navigateToTakeSign}
+                  >
+                    Sign It
+                  </button>
+                </div>
+              </>
             )}
 
             {/* Show you rejected message if clientSignature is greater than 0 and status is rejected */}
@@ -281,19 +247,13 @@ const SignQuotation = () => {
                         Download PDF
                       </Button>
                       <Button
-                        className="border border-success bg-white text-success"
-                        onClick={handleWhatsAppShare}
-                      >
-                        Share on Whatsapp
-                      </Button>
-                    </div>
-                    <div className="download-share">
-                      <Button
                         className="bg-danger text-white"
                         onClick={handleGenerateImage}
                       >
                         Download PNG
                       </Button>
+                    </div>
+                    <div className="download-share">
                       <Button
                         to="/"
                         className="border border-danger bg-white text-danger"

@@ -45,7 +45,7 @@ const QuotationReview = () => {
     if (quotation) {
       const clientNumber = `+91${quotation.client.number}`;
       const message = `Hello ${quotation.client.name} 😊, greeting from Soni Painting. Here's our quotation, please review and sign it.`;
-      const url = `http://localhost:5173/sign/quotation/${quotation._id}`;
+      const url = `https://sonipainting.com/sign/quotation/${quotation._id}`;
 
       const whatsappURL = `https://wa.me/${clientNumber}?text=${encodeURIComponent(
         `${message}\n\n${url}`

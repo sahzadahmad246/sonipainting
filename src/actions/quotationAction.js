@@ -42,7 +42,7 @@ export const sendQuotationData = (quotationDetails) => async (dispatch) => {
   }
 };
 
-// Update Quotation Action 
+// Update Quotation Action
 export const updateQuotation = (id, updatedData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_QUOTATION_REQUEST });
@@ -121,9 +121,12 @@ export const deleteQuotation = (id) => async (dispatch) => {
 export const getQuotationById = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_QUOTATION_BY_ID_REQUEST });
-    const { data } = await axios.get(`https://sonipainting-backend.onrender.com/quotations/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `https://sonipainting-backend.onrender.com/quotations/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
     dispatch({ type: GET_QUOTATION_BY_ID_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -137,9 +140,12 @@ export const getQuotationById = (id) => async (dispatch) => {
 export const getAllQuotations = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_QUOTATIONS_REQUEST });
-    const { data } = await axios.get("https://sonipainting-backend.onrender.com/quotations", {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      "https://sonipainting-backend.onrender.com/quotations",
+      {
+        withCredentials: true,
+      }
+    );
     dispatch({ type: GET_ALL_QUOTATIONS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
