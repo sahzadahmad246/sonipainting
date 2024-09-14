@@ -101,7 +101,7 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
           <span>for SONI PAINTING</span>
         </div>
         <div className="client-sign">
-          <img src={quotation.clientSignature.[0].url} alt="sign" />
+          <img src={quotation.clientSignature[0].url} alt="sign" />
           <span>for {quotation?.client.name}</span>
         </div>
       </div>
