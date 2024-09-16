@@ -14,7 +14,7 @@ import {
 export const getUser = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
-    const { data } = await axios.get("https://sonipaintingworks.onrender.com/login/success", {
+    const { data } = await axios.get("https://sonipainting-backend.onrender.com/login/success", {
       withCredentials: true,
     });
     dispatch({ type: GET_USER_SUCCESS, payload: data.user });
@@ -30,7 +30,7 @@ export const getUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     dispatch({ type: LOGOUT_REQUEST });
-    await axios.get("https://sonipaintingworks.onrender.com/logout", {
+    await axios.get("https://sonipainting-backend.onrender.com/logout", {
       withCredentials: true,
     });
     dispatch({ type: LOGOUT_SUCCESS });
