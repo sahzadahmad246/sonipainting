@@ -2,6 +2,8 @@ import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
 import logo from "../images/logo.png";
+import './QuotationReview.css'
+
 const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
   console.log(quotation)
   return (
@@ -102,7 +104,7 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
           <span>for SONI PAINTING</span>
         </div>
         <div className="client-sign">
-          <img src="" alt="sign" />
+          <img className="sign-img" src={quotation?.clientSignature[0]?.url} alt="sign" />
           <span>for {quotation?.client.name}</span>
         </div>
       </div>

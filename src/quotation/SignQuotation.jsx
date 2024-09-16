@@ -118,69 +118,81 @@ const SignQuotation = () => {
             {/* Show sign-consent and reject div if clientSignature is 0 and status is not rejected */}
             {quotation?.clientSignature?.length === 0 &&
               quotation?.status !== "rejected" && (
-                <div className="sign-consent">
-                  <div className="sign-consent-1">
-                    <input
-                      type="checkbox"
-                      id="consent"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="consent" className="ps-2">
-                      I have read all the details carefully and I agree with it
-                    </label>
+                <>
+                  <div className="sign-consent">
+                    <div className="sign-consent-1">
+                      <input
+                        type="checkbox"
+                        id="consent"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                      />
+                      <label htmlFor="consent" className="ps-2">
+                        I have read all the details carefully and I agree with
+                        it
+                      </label>
+                    </div>
+                    <button
+                      className={`sign-button ${isChecked ? "" : "disabled"}`}
+                      disabled={!isChecked}
+                      onClick={navigateToTakeSign}
+                    >
+                      Sign It
+                    </button>
                   </div>
-                  <button
-                    className={`sign-button ${isChecked ? "" : "disabled"}`}
-                    disabled={!isChecked}
-                    onClick={navigateToTakeSign}
-                  >
-                    Sign It
-                  </button>
-                </div>
+
+                  {/* Rejection form */}
+                  <div className="reject-reason">
+                    <h5 className="mt-3">
+                      Don't want to sign it? Please tell us why
+                    </h5>
+                    <Select
+                      value={selectedReason}
+                      onChange={(e) => setSelectedReason(e.target.value)}
+                      displayEmpty
+                      className="w-100"
+                    >
+                      <MenuItem value="" disabled>
+                        Select a reason
+                      </MenuItem>
+                      <MenuItem value="Price is too high">
+                        Price is too high
+                      </MenuItem>
+                      <MenuItem value="Not satisfied with terms">
+                        Not satisfied with terms
+                      </MenuItem>
+                      <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+
+                    {selectedReason === "Other" && (
+                      <TextField
+                        label="Please specify"
+                        fullWidth
+                        className="mt-2"
+                        value={customReason}
+                        onChange={(e) => setCustomReason(e.target.value)}
+                      />
+                    )}
+
+                    <Button
+                      variant="contained"
+                      color="error"
+                      className="mt-3"
+                      onClick={handleReject}
+                      fullWidth
+                      disabled={
+                        !selectedReason ||
+                        (selectedReason === "Other" && !customReason)
+                      }
+                    >
+                      Reject Quotation
+                    </Button>
+                  </div>
+                </>
               )}
 
-            {/* Show reject div if clientSignature is 0 */}
-            {quotation?.clientSignature?.length === 0 && (
-              <>
-                <div className="signed-successful">
-                  <div className="signed-successful-top">
-                    <span>
-                      <FaTimesCircle size={80} color="red" />
-                    </span>
-                    <h1 className="fs-5 mt-2">
-                      You rejected this quotation ❌
-                    </h1>
-                    <span className="text-secondary fs-6">
-                      What's next? Call us or wait for our call
-                    </span>
-                  </div>
-                </div>
-                <div className="sign-consent mt-3">
-                  <div className="sign-consent-1">
-                    <input
-                      type="checkbox"
-                      id="consent"
-                      checked={isChecked}
-                      onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor="consent" className="ps-2">
-                      Rejectd it by accidently? Sign it here
-                    </label>
-                  </div>
-                  <button
-                    className={`sign-button ${isChecked ? "" : "disabled"}`}
-                    disabled={!isChecked}
-                    onClick={navigateToTakeSign}
-                  >
-                    Sign It
-                  </button>
-                </div>
-              </>
-            )}
-
             {/* Show you rejected message if clientSignature is greater than 0 and status is rejected */}
-            {quotation?.clientSignature?.length > 0 &&
+            {
               quotation?.status === "rejected" && (
                 <>
                   <div className="signed-successful">
