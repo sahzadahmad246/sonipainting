@@ -27,7 +27,7 @@ function Nav() {
   const { user, loading } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
-console.log(user)
+
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
@@ -97,13 +97,13 @@ console.log(user)
                   Contact
                 </NavLink>
               </li>
-              {/* {user && user.isAdmin === true ? ( */}
+              {user && user.isAdmin === true ? (
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
-              {/* ) : null} */}
+              ) : null}
 
               {user ? (
                 <li className="nav-item">
