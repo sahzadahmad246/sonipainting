@@ -27,7 +27,7 @@ function Nav() {
   const { user, loading } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
-
+console.log(user)
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
