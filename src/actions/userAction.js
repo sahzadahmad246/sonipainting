@@ -30,7 +30,7 @@ export const getUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     dispatch({ type: LOGOUT_REQUEST });
-    await axios.get("https://sonipainting-backend.onrender.com/logout", {
+    await axios.get("http://localhost:5000/logout", {
       withCredentials: true,
     });
     dispatch({ type: LOGOUT_SUCCESS });

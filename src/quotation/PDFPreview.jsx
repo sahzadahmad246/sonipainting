@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
 import logo from "../images/logo.png";
 import "./QuotationReview.css";
 
+// Helper function to fetch and convert image to Base64
+const toBase64 = (url) => {
+  return fetch(url)
+    .then((response) => response.blob())
+    .then((blob) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    });
+};
+
 const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
+  const [signImageBase64, setSignImageBase64] = useState(null);
+
+  const signImageUrl = quotation?.clientSignature[0]?.url;
+
+  useEffect(() => {
+    if (signImageUrl) {
+      toBase64(signImageUrl).then((base64) => {
+        setSignImageBase64(base64);
+      });
+    }
+  }, [signImageUrl]);
+
   return (
     <div ref={pdfRef} className="quotation-content">
       <div className="company-details">
@@ -103,16 +129,15 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
           <span>for SONI PAINTING</span>
         </div>
         <div className="client-sign">
-          {/* <img
-            className="sign-img"
-            src={quotation?.clientSignature[0]?.url}
-            alt="sign"
-          /> */}
-          <img
-            src="https://tse3.mm.bing.net/th?id=OIP.yXJRx0IHXBcyFU8NDuU1xgHaEK&pid=Api&P=0&h=180"
-            alt="image"
-            className="sign-img"
-          />
+          {signImageBase64 ? (
+            <img
+              className="sign-img"
+              src={signImageBase64}
+              alt="Client Signature"
+            />
+          ) : (
+            <span>Loading Signature...</span>
+          )}
           <span>for {quotation?.client.name}</span>
         </div>
       </div>

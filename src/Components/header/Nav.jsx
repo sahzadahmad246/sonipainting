@@ -97,13 +97,13 @@ function Nav() {
                   Contact
                 </NavLink>
               </li>
-              {user && user.isAdmin === true ? (
+              {/* {user && user.isAdmin === true ? ( */}
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
-              ) : null}
+              {/* ) : null} */}
 
               {user ? (
                 <li className="nav-item">

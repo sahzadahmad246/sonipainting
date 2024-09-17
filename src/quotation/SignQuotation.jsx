@@ -52,7 +52,7 @@ const SignQuotation = () => {
   const handleGeneratePDF = () => {
     const input = pdfRef.current;
     setTimeout(() => {
-      html2canvas(input, { scale: 4 }).then((canvas) => {
+      html2canvas(input, { scale: 4 }, { useCORS: true }).then((canvas) => {
         const imgData = canvas.toDataURL("image/png");
         const pdf = new jsPDF("p", "mm", "a4");
         const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -65,7 +65,7 @@ const SignQuotation = () => {
 
   const handleGenerateImage = () => {
     const input = pdfRef.current;
-    html2canvas(input, { scale: 4 }).then((canvas) => {
+    html2canvas(input, { scale: 4 }, { useCORS: true }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = imgData;
@@ -193,44 +193,43 @@ const SignQuotation = () => {
               )}
 
             {/* Show you rejected message if clientSignature is greater than 0 and status is rejected */}
-            {
-              quotation?.status === "rejected" && (
-                <>
-                  <div className="signed-successful">
-                    <div className="signed-successful-top">
-                      <span>
-                        <FaTimesCircle size={80} color="red" />
-                      </span>
-                      <h1 className="fs-5 mt-2">
-                        You rejected this quotation ❌
-                      </h1>
-                      <span className="text-secondary fs-6">
-                        What's next? Call us or wait for our call
-                      </span>
-                    </div>
+            {quotation?.status === "rejected" && (
+              <>
+                <div className="signed-successful">
+                  <div className="signed-successful-top">
+                    <span>
+                      <FaTimesCircle size={80} color="red" />
+                    </span>
+                    <h1 className="fs-5 mt-2">
+                      You rejected this quotation ❌
+                    </h1>
+                    <span className="text-secondary fs-6">
+                      What's next? Call us or wait for our call
+                    </span>
                   </div>
-                  <div className="sign-consent mt-3">
-                    <div className="sign-consent-1">
-                      <input
-                        type="checkbox"
-                        id="consent"
-                        checked={isChecked}
-                        onChange={handleCheckboxChange}
-                      />
-                      <label htmlFor="consent" className="ps-2">
-                        Rejectd it by accidently? Sign it here
-                      </label>
-                    </div>
-                    <button
-                      className={`sign-button ${isChecked ? "" : "disabled"}`}
-                      disabled={!isChecked}
-                      onClick={navigateToTakeSign}
-                    >
-                      Sign It
-                    </button>
+                </div>
+                <div className="sign-consent mt-3">
+                  <div className="sign-consent-1">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={isChecked}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor="consent" className="ps-2">
+                      Rejectd it by accidently? Sign it here
+                    </label>
                   </div>
-                </>
-              )}
+                  <button
+                    className={`sign-button ${isChecked ? "" : "disabled"}`}
+                    disabled={!isChecked}
+                    onClick={navigateToTakeSign}
+                  >
+                    Sign It
+                  </button>
+                </div>
+              </>
+            )}
 
             {/* Show deal is done and download/share buttons if clientSignature is available */}
             {quotation?.clientSignature?.length > 0 &&
