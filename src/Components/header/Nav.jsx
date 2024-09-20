@@ -1,66 +1,71 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
+import { loadUser, logoutUser } from "../../actions/userAction";
 import "../../CSS/header/Nav.css";
 import "../../CSS/home/Admin.css";
 import { MdLogout } from "react-icons/md";
-import { getUser, logout } from "../../actions/userAction";
 import logo from "../../images/logo.png";
 import {
   Button,
   Menu,
   MenuItem,
-  Avatar,
-  Typography,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  CircularProgress,
+  IconButton,
+  Avatar,
 } from "@mui/material";
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { user, loading } = useSelector((state) => state.user);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
+  // Load user data
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(loadUser());
   }, [dispatch]);
 
+  // Open menu when avatar or user name is clicked
   const handleAvatarClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  // Close the dropdown menu
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  // Open the logout confirmation dialog
   const handleLogoutDialogOpen = () => {
     setLogoutDialogOpen(true);
+    handleMenuClose();
   };
 
+  // Close the logout confirmation dialog
   const handleLogoutDialogClose = () => {
     setLogoutDialogOpen(false);
   };
 
+  // Handle logout and navigate to login page
   const handleLogout = () => {
-    dispatch(logout());
-    handleMenuClose();
+    dispatch(logoutUser());
     handleLogoutDialogClose();
-    dispatch(getUser());
     navigate("/login");
+    dispatch(loadUser());
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <NavLink className="navbar-brand font-weight-bold logo" to="/">
-          <img src={logo} alt="logo"/> Soni Painting
+          <img src={logo} alt="logo" /> Soni Painting
         </NavLink>
         <button
           className="navbar-toggler"
@@ -97,51 +102,19 @@ function Nav() {
                   Contact
                 </NavLink>
               </li>
-              {/* {user && user.isAdmin === true ? ( */}
+              {user?.user?.isAdmin === true ? (
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/dashboard">
                     Dashboard
                   </NavLink>
                 </li>
-              {/* ) : null} */}
+              ) : null}
 
-              {user ? (
+              {isAuthenticated ? (
                 <li className="nav-item">
-                  <Button onClick={handleAvatarClick}>
-                    {loading ? (
-                      <CircularProgress size={24} />
-                    ) : (
-                      <Avatar src={user.avatar?.url} alt={user.name} />
-                    )}
-                  </Button>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                    anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "right",
-                    }}
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                  >
-                    <MenuItem disabled>
-                      <Typography variant="body1" style={{ color: "black" }}>
-                        {user.name}
-                      </Typography>
-                    </MenuItem>
-                    <MenuItem disabled>
-                      <Typography variant="body2" style={{ color: "black" }}>
-                        {user.email}
-                      </Typography>
-                    </MenuItem>
-                    <MenuItem onClick={handleLogoutDialogOpen}>
-                      <MdLogout style={{ marginRight: 8 }} />
-                      Logout
-                    </MenuItem>
-                  </Menu>
+                  <IconButton onClick={handleAvatarClick}>
+                    <Avatar alt={user?.user?.name} />
+                  </IconButton>
                 </li>
               ) : (
                 <li className="nav-item">
@@ -159,6 +132,34 @@ function Nav() {
           </div>
         </div>
       </div>
+
+      {/* MUI Menu for user details and logout */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        {/* Show user phone number */}
+
+        <MenuItem onClick={handleMenuClose}>
+          {user?.user?.name ? (
+            <span>{user.user.name}</span>
+          ) : (
+            <span>No Phone Number</span>
+          )}
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          {user?.user?.phoneNumber ? (
+            <span>{user.user.phoneNumber}</span>
+          ) : (
+            <span>No Phone Number</span>
+          )}
+        </MenuItem>
+        {/* Logout option */}
+        <MenuItem onClick={handleLogoutDialogOpen}>
+          <MdLogout /> Logout
+        </MenuItem>
+      </Menu>
 
       {/* Logout Confirmation Dialog */}
       <Dialog

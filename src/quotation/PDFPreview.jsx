@@ -30,7 +30,7 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
       });
     }
   }, [signImageUrl]);
-
+console.log(signImageUrl)
   return (
     <div ref={pdfRef} className="quotation-content">
       <div className="company-details">

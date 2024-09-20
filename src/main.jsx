@@ -11,10 +11,10 @@ import Nav from "./Components/header/Nav.jsx";
 import Services from "./Components/pages/Services.jsx";
 import Callback from "./Components/pages/Callback.jsx";
 import Admin from "./Components/other/Admin.jsx";
-import Register from "./Components/other/Register.jsx";
+import Registration from "./Components/User/Register.jsx";
 import { Provider } from "react-redux";
 import store from "./store.js";
-import LoginGoogle from "./Components/other/LoginGoogle.jsx";
+import Login from "./Components/User/Login.jsx";
 import QuotationReview from "./quotation/QuotationReview.jsx";
 import SignQuotation from "./quotation/SignQuotation.jsx";
 import TakeSign from "./quotation/TakeSign.jsx";
@@ -50,11 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/login",
-        element: <LoginGoogle />,
+        element: <Login />,
       },
       {
-        path: "/admin/register",
-        element: <Register />,
+        path: "/register",
+        element: <Registration />,
       },
       {
         path: "/dashboard",

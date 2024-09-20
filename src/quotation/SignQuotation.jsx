@@ -45,7 +45,7 @@ const SignQuotation = () => {
       dispatch(getQuotationById(id));
     }
   }, [dispatch, id]);
-
+console.log( "quotation",quotation)
   const now = new Date();
   const formattedDate = format(now, "dd - MMMM - yyyy h:mm a");
 
