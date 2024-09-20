@@ -73,7 +73,7 @@ export const loginUser = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/login",
+      "https://sonipainting-backend.onrender.com/api/login",
       userData,
       config
     );
@@ -98,7 +98,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("http://localhost:5000/api/me", {
+    const { data } = await axios.get("https://sonipainting-backend.onrender.com/api/me", {
       withCredentials: true,
     });
     console.log("Loaded user data:", data);
@@ -119,7 +119,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User Action
 export const logoutUser = () => async (dispatch) => {
   try {
-    await axios.get("http://localhost:5000/api/logout", {
+    await axios.get("https://sonipainting-backend.onrender.com/api/logout", {
       withCredentials: true,
     });
 
@@ -140,7 +140,7 @@ export const getUserById = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/user/${id}`, {
+    const { data } = await axios.get(`https://sonipainting-backend.onrender.com/api/user/${id}`, {
       withCredentials: true,
     });
 
@@ -164,7 +164,7 @@ export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_USERS_REQUEST });
 
-    const { data } = await axios.get("http://localhost:5000/api/users", {
+    const { data } = await axios.get("https://sonipainting-backend.onrender.com/api/users", {
       withCredentials: true,
     });
 
