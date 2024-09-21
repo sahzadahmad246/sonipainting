@@ -97,18 +97,19 @@ const Registration = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <StyledButton
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                Register
-              </StyledButton>
-            )}
+            <StyledButton
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              disabled={loading}
+            >
+              {loading ? (
+                <CircularProgress size={24} style={{ color: "white" }} />
+              ) : (
+                "Sign up"
+              )}
+            </StyledButton>
             {error && (
               <Typography color="error" variant="body2">
                 {error}
@@ -118,7 +119,7 @@ const Registration = () => {
             <Typography variant="body2" style={{ marginTop: "1rem" }}>
               Already have an account?
               <Button color="primary" onClick={handleLoginRedirect}>
-                Sign up
+               Login
               </Button>
             </Typography>
           </form>

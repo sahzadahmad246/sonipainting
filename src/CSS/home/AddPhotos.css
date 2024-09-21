@@ -1,8 +1,7 @@
 .add-photo-main {
   display: flex;
-  margin: 0px;
+  margin: 0;
   justify-content: center;
-
 }
 
 .add-photo {
@@ -13,6 +12,7 @@
   justify-content: center;
   flex-direction: column;
 }
+
 .select-image {
   display: flex;
   margin-top: 25px;
@@ -22,9 +22,9 @@
   width: 40%;
   height: 200px;
 }
+
 .select-image .input-box {
   border: 1px dashed gray;
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -33,6 +33,7 @@
   width: 100%;
   height: 100%;
 }
+
 .input-box {
   display: inline-block;
   background-color: #f0f0f0;
@@ -67,70 +68,40 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 0px;
+  padding: 0;
   justify-content: space-around;
-  border-radius: 0px;
+  border-radius: 0;
   margin: 30px 5px;
-  max-height: 250px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
-}
-
-.preview {
-  width: 100px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  margin: 10px;
-}
-
-.preview img {
-  width: 100%;
   height: auto;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  width: 100%;
 }
 
-.preview span {
-  display: block;
-  margin-top: 5px;
-  margin: 5px;
-}
-
-
-/* css for uploadedphotos component */
 .image-container {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  padding: 40px 0px ;
   display: grid;
-  gap: 25px; 
-  padding-left: 40px;
+  gap: 25px; /* Gap between images */
+  padding: 40px 0;
   background: #ecf0f3;
-  grid-template-columns: repeat(5, calc((100% - 120px) / 5)); /* Adjusted column width */
+  grid-template-columns: repeat(5, 1fr); /* 5 columns for desktop */
+  border: 1px solid red;
 }
 
-.image-container .loader{
-width: 1300px;
-display: flex;
-justify-content: center;
-}
-.image-box{
-  width: 200px;
+.image-box {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+.indivisual-image {
+  margin: 10px 0px;
 }
 .image-container img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.image-box button{
+.image-box button {
   width: 100%;
   border: none;
   outline: none;
@@ -140,103 +111,26 @@ justify-content: center;
 
 @media only screen and (max-width: 767px) {
   .select-image {
-    padding: 0px;
+    padding: 0;
     width: 80%;
     height: 180px;
   }
 
-  
-  .input-box:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .gallery-icon {
-    width: 50px;
-    height: 50px;
-    color: rgb(70, 69, 69);
-  }
-  
   .upload-btn {
-    outline: none;
-    border: none;
-    color: #fff;
-    padding: 7px;
     width: 300px;
-    margin-top: 25px;
     border-radius: 10px;
   }
-  
-  .preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 0px;
-    justify-content: space-around;
-    border-radius: 0px;
-    margin: 30px 5px;
-    max-height: 250px;
-    overflow-y: auto;
-    scrollbar-width: none;
-    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
-  }
-  
-  .preview {
-    width: 80px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin: 10px;
-  }
-  
-  .preview img {
-    width: 100%;
-    height: auto;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .preview span {
-    display: block;
-    margin-top: 5px;
-    margin: 5px;
-  }
-  
-  
-  /* css for uploadedphotos component */
-  .image-container {
-    height: 100%;
-    padding: 40px 0px ;
-    display: grid;
-    gap: 35px; 
-    padding-left: 25px;
-    background: #ecf0f3;
-    grid-template-columns: repeat(2, calc((100% - 70px) / 2));
 
+  .image-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for mobile */
+    padding-left: 25px;
   }
-  
-  .image-container .loader{
-    width: 300px;
-    display: flex;
-    justify-content: center;
-    }
-  .image-box{
-    width: 150px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .image-box {
+    width: auto; /* Allow automatic width */
   }
+
   .image-container img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  
-  .image-box button{
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 10px;
-    color: #fff;
+    height: auto; /* Maintain aspect ratio */
   }
 }

@@ -1,68 +1,21 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios"; // Comment out axios import
 import { ThreeDots } from "react-loader-spinner";
 import "../../CSS/home/AddPhotos.css";
-import profile from "../../images/office.png";
 import { AiOutlineDelete } from "react-icons/ai";
-import image1 from "../../images/image1.jpg";
-import image2 from "../../images/image2.jpg";
-import image3 from "../../images/image3.jpg";
-import image4 from "../../images/image4.jpg";
-import image5 from "../../images/image5.jpg";
-import image6 from "../../images/image6.jpg";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllImages, deleteImage } from "../../actions/imageAction";
 
 const UploadedPhotos = () => {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
-  const [imageNameToDelete, setImageNameToDelete] = useState("");
-
-  // useEffect(() => {
-  //   const fetchImages = async () => {
-  //     try {
-  //       const token = localStorage.getItem("token");
-  //       const response = await axios.get(
-  //         "https://sonipainting-backend.onrender.com/get-images",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setImages(response.data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching images:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchImages();
-  // }, []);
+  const dispatch = useDispatch();
+  const { loading, images, error } = useSelector((state) => state.getAllImages);
 
   useEffect(() => {
-    // Simulating API call delay with setTimeout
-    setTimeout(() => {
-      setImages([image1, image2, image3, image4, image5, image6]);
-      setLoading(false);
-    }, 1000); // Adjust timeout as needed
-  }, []);
+    dispatch(getAllImages());
+  }, [dispatch]);
 
-  const handleDelete = (imageName) => {
-    setImageNameToDelete(imageName);
-    setShowDeleteConfirmation(true);
-  };
-
-  const cancelDelete = () => {
-    setShowDeleteConfirmation(false);
-    setImageNameToDelete("");
-  };
-
-  const confirmDelete = async () => {
-    // Simulating delete operation
-    setImages(images.filter((img) => img !== imageNameToDelete));
-    setShowDeleteConfirmation(false);
-    setImageNameToDelete("");
+  const handleDelete = (imageId) => {
+    // Dispatch delete action with the specific imageId
+    dispatch(deleteImage(imageId));
   };
 
   return (
@@ -76,30 +29,34 @@ const UploadedPhotos = () => {
             color="#FF0000"
             radius="9"
             ariaLabel="three-dots-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
           />
         </div>
       ) : (
-        images.map((imageName, index) => (
-          <div className="image-box" key={index}>
-            <img
-              src={imageName} // Change source to the imported local image
-              alt={`Image ${index}`}
-            />
-            <button
-              className="bg-danger"
-              onClick={() => handleDelete(imageName)}
-            >
-              delete
-              <i className="ps-2 fa-solid fa-trash"></i>
-            </button>
+        images.map((imageEntry) => (
+          <div key={imageEntry._id} className="image-box">
+            {imageEntry.images.map((image, index) => (
+              <div key={index} className="indivisual-image">
+                <img
+                  src={image.url} 
+                  className=""
+                  alt={`Image ${index}`}
+                />
+                <button
+                  className="bg-danger"
+                  onClick={() => handleDelete(image.public_id)} // Use public_id for deletion
+                >
+                  Delete
+                  <i className="ps-2 fa-solid fa-trash"></i>
+                </button>
+              </div>
+            ))}
           </div>
         ))
       )}
+      {/* Uncomment for delete confirmation popup if needed
       {showDeleteConfirmation && (
         <div className="confirmation-popup">
-          <AiOutlineDelete size={35} className="ps-1 my-2  border-circle" />
+          <AiOutlineDelete size={35} className="ps-1 my-2 border-circle" />
           <p>Are you sure you want to delete this image?</p>
           <div className="confirmation-popup-button">
             <button
@@ -113,7 +70,7 @@ const UploadedPhotos = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

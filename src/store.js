@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer, authReducer } from "./reducers/userReducer";
+import { imageUploadReducer, imageUpdateReducer, getAllImagesReducer, getImageByIdReducer, deleteImageReducer } from "./reducers/imageReducer";
 import {
   sendQuotationReducer,
   updateSignatureReducer,
@@ -15,6 +16,11 @@ const store = configureStore({
   reducer: {
     user: userReducer,
     auth: authReducer,
+    imageUpload: imageUploadReducer,
+    imageUpdate: imageUpdateReducer,
+    getAllImages: getAllImagesReducer,
+    getImageById: getImageByIdReducer,
+    deleteImage: deleteImageReducer,
     sendQuotationData: sendQuotationReducer,
     updatedSignatureData: updateSignatureReducer,
     updatedQuotationData: updateQuotationReducer,

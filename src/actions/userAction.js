@@ -36,7 +36,7 @@ export const registerUser = (userData) => async (dispatch) => {
       headers: {
         "Content-Type": "application/json",
       },
-      withCredentials: true, // Important for sending cookies
+      withCredentials: true, 
     };
 
     const { data } = await axios.post(
@@ -73,7 +73,7 @@ export const loginUser = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "https://sonipainting-backend.onrender.com/api/login",
+      "http://localhost:5000/api/login",
       userData,
       config
     );
@@ -140,9 +140,12 @@ export const getUserById = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_USER_REQUEST });
 
-    const { data } = await axios.get(`https://sonipainting-backend.onrender.com/api/user/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `https://sonipainting-backend.onrender.com/api/user/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
 
     dispatch({
       type: GET_USER_SUCCESS,
@@ -164,9 +167,12 @@ export const getAllUsers = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_USERS_REQUEST });
 
-    const { data } = await axios.get("https://sonipainting-backend.onrender.com/api/users", {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      "https://sonipainting-backend.onrender.com/api/users",
+      {
+        withCredentials: true,
+      }
+    );
 
     dispatch({
       type: GET_ALL_USERS_SUCCESS,
