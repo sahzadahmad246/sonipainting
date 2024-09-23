@@ -84,7 +84,7 @@ export const updateSignature = (id, updatedData) => async (dispatch) => {
 
     // Send the signature and other data as JSON
     const { data } = await axios.put(
-      `http://localhost:5000/update/sign/${id}`,
+      `https://sonipainting-backend.onrender.com/update/sign/${id}`,
       updatedData,
       config
     );

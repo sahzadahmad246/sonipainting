@@ -16,10 +16,10 @@ const Admin = () => {
   const { user, loading } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const [showAddPhotos, setShowAddPhotos] = useState(true);
+  const [showAddPhotos, setShowAddPhotos] = useState(false);
   const [showReviews, setShowReviews] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
-  const [showQuotation, setShowQuotation] = useState(false);
+  const [showQuotation, setShowQuotation] = useState(true);
 
   return (
     <>
