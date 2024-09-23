@@ -1,23 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import painterImage from "../../images/painter1.jpg";
 import Services from "../pages/Services";
-// import { Gallery, images } from "./Gallery";
-
+import { getAllImages } from "../../actions/imageAction";
 import "../../CSS/home/home.css";
 import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
-import ImagePreview from "../other/ImagePreview";
 import Reviews from "../other/Reviews";
 import Gallery from "./Gallery";
+import { useDispatch, useSelector } from "react-redux";
+import { Carousel } from "react-bootstrap";
+
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap styles
 
 function Home() {
+  const dispatch = useDispatch();
+  const { loading, images, error } = useSelector((state) => state.getAllImages);
+
+  useEffect(() => {
+    dispatch(getAllImages());
+  }, [dispatch]);
+
+  // Function to get 5 random images from the images array
+  const getRandomImages = (images, count) => {
+    if (!images || images.length === 0) return [];
+    const flattenedImages = images.flatMap((imageEntry) => imageEntry.images);
+    const shuffled = [...flattenedImages].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
+
+  const randomImages = getRandomImages(images, 5); // Get 5 random images
+
   return (
     <>
       <div className="landing">
         <div className="landing-left">
           <div className="left-content">
             <div className="welcome-message">
-              Welcome to Soni Painting Wroks
+              Welcome to Soni Painting Works
             </div>
             <h1>
               Give shining <span>features </span>
@@ -26,18 +45,18 @@ function Home() {
             <div className="left-service">
               <div className="service-icon">
                 <span>
-                  <i class="fi fi-tr-house-chimney"></i>House Painting
+                  <i className="fi fi-tr-house-chimney"></i>House Painting
                 </span>
                 <span>
-                  <i class="fi fi-tr-city"></i>Office Painting
+                  <i className="fi fi-tr-city"></i>Office Painting
                 </span>
               </div>
               <div className="service-icon">
                 <span className="align-center">
-                  <i class="fi fi-tr-blinds-open"></i>Interior Painting
+                  <i className="fi fi-tr-blinds-open"></i>Interior Painting
                 </span>
                 <span>
-                  <i class="fi fi-tr-water"></i>Water proofing
+                  <i className="fi fi-tr-water"></i>Waterproofing
                 </span>
               </div>
               <div className="btn">
@@ -48,12 +67,34 @@ function Home() {
             </div>
           </div>
         </div>
+
         <div className="landing-right">
-          <img src={painterImage} alt="painter image" />
+          {loading ? (
+            <div>Loading...</div>
+          ) : error ? (
+            <div>Error loading images</div>
+          ) : (
+            <Carousel>
+              {randomImages.map((image, index) => (
+                <Carousel.Item key={index}>
+                  <img
+                    src={image.url}
+                    alt={`Image ${index}`}
+                    className="slider-image"
+                  />
+                  {image.description && (
+                    <Carousel.Caption>
+                      <p className="text-black bg-white">{image.description}</p>
+                    </Carousel.Caption>
+                  )}
+                </Carousel.Item>
+              ))}
+            </Carousel>
+          )}
         </div>
       </div>
-      <Services />
 
+      <Services />
       <Gallery displayCount={8} />
       <Reviews />
       <Footer />

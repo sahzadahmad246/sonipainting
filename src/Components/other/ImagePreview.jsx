@@ -1,8 +1,9 @@
 // ImagePreview.js
 import React from "react";
-import '../../CSS/home/home.css'
+import "../../CSS/home/home.css";
 
-function ImagePreview({ imageUrl, onClose }) {
+function ImagePreview({ image, onClose }) {
+  console.log(image);
   return (
     <div className="preview-overlay">
       <div className="gallery-preview-container">
@@ -10,7 +11,8 @@ function ImagePreview({ imageUrl, onClose }) {
           <i className="fa fa-solid fa-x"></i>
         </button>
         <div className="preview-image">
-          <img src={imageUrl} alt="Preview" />
+          <img src={image.url} alt="Preview" />
+          <span>{image.description}</span>
         </div>
       </div>
     </div>

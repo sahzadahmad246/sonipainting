@@ -10,9 +10,9 @@ import UploadedPhotos from "./UploadedPhotos";
 const AddPhotos = () => {
   const dispatch = useDispatch();
   const [selectedFiles, setSelectedFiles] = useState([]);
-  const [descriptions, setDescriptions] = useState([]); // Descriptions for images
+  const [descriptions, setDescriptions] = useState([]);
   const [uploading, setUploading] = useState(false);
-  const [errors, setErrors] = useState([]); // Error state for description validation
+  const [errors, setErrors] = useState([]);
 
   const {
     loading: imageLoading,
@@ -20,7 +20,6 @@ const AddPhotos = () => {
     error,
   } = useSelector((state) => state.imageUpload);
 
-  // Reset form after successful upload
   useEffect(() => {
     if (success) {
       toast.success("Photos uploaded successfully");
@@ -124,6 +123,7 @@ const AddPhotos = () => {
                 <TextField
                   label={"description"}
                   variant="outlined"
+                  className="image-description"
                   fullWidth
                   value={descriptions[index]}
                   onChange={(e) => handleDescriptionChange(index, e)}

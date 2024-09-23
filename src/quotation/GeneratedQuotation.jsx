@@ -42,7 +42,7 @@ export const GeneratedQuotation = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
     };
-console.log(quotations)
+    console.log(quotations);
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -154,7 +154,7 @@ console.log(quotations)
                           ? quotation?.items?.map((item, i) => (
                               <div key={i}>{item.description}</div>
                             ))
-                          : quotation.items
+                          : quotation?.items
                               .slice(0, 1)
                               .map((item, i) => (
                                 <div key={i}>{item.description}</div>

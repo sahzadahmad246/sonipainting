@@ -34,6 +34,7 @@
   margin: 20px;
   display: flex;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
   width: 250px;
   justify-content: center;
   align-items: center;
@@ -44,6 +45,9 @@
   height: 250px;
   object-fit: cover;
   border-radius: 10px;
+}
+.gallery-image p{
+  padding: 5px;
 }
 .gallery-main a {
   font-size: 35px;

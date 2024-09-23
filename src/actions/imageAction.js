@@ -29,7 +29,7 @@ export const uploadImages = (formData) => async (dispatch) => {
       withCredentials: true, // For handling cross-origin cookies
     };
 
-    const { data } = await axios.post("http://localhost:5000/api/v1/upload", formData, config);
+    const { data } = await axios.post("https://sonipainting-backend.onrender.com/api/v1/upload", formData, config);
 
     dispatch({ type: IMAGE_UPLOAD_SUCCESS, payload: data.newImageEntry });
   } catch (error) {
@@ -52,7 +52,7 @@ export const updateImage = (id, formData) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.put(`http://localhost:5000/api/v1/image/${id}`, formData, config);
+    const { data } = await axios.put(`https://sonipainting-backend.onrender.com/api/v1/image/${id}`, formData, config);
 
     dispatch({ type: IMAGE_UPDATE_SUCCESS, payload: data.imageEntry });
   } catch (error) {
@@ -68,7 +68,7 @@ export const getAllImages = () => async (dispatch) => {
   try {
     dispatch({ type: IMAGE_GET_ALL_REQUEST });
 
-    const { data } = await axios.get("http://localhost:5000/api/v1/images", { withCredentials: true });
+    const { data } = await axios.get("https://sonipainting-backend.onrender.com/api/v1/images", { withCredentials: true });
 
     dispatch({ type: IMAGE_GET_ALL_SUCCESS, payload: data.images });
   } catch (error) {
@@ -84,7 +84,7 @@ export const getImageById = (id) => async (dispatch) => {
   try {
     dispatch({ type: IMAGE_GET_BY_ID_REQUEST });
 
-    const { data } = await axios.get(`http://localhost:5000/api/v1/image/${id}`, { withCredentials: true });
+    const { data } = await axios.get(`https://sonipainting-backend.onrender.com/api/v1/image/${id}`, { withCredentials: true });
 
     dispatch({ type: IMAGE_GET_BY_ID_SUCCESS, payload: data.image });
   } catch (error) {
@@ -100,7 +100,7 @@ export const deleteImage = (id) => async (dispatch) => {
   try {
     dispatch({ type: IMAGE_DELETE_REQUEST });
 
-    await axios.delete(`http://localhost:5000/api/v1/image/${id}`, { withCredentials: true });
+    await axios.delete(`https://sonipainting-backend.onrender.com/api/v1/image/${id}`, { withCredentials: true });
 
     dispatch({ type: IMAGE_DELETE_SUCCESS });
   } catch (error) {

@@ -1,27 +1,60 @@
 import React, { useState, useEffect } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import "../../CSS/home/AddPhotos.css";
-import { AiOutlineDelete } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllImages, deleteImage } from "../../actions/imageAction";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+import { toast } from "react-toastify";
 
 const UploadedPhotos = () => {
   const dispatch = useDispatch();
   const { loading, images, error } = useSelector((state) => state.getAllImages);
-
+  const { success, error: deleteError } = useSelector(
+    (state) => state.deleteImage
+  );
+  const [open, setOpen] = useState(false);
+  const [currentImageId, setCurrentImageId] = useState(null);
+  console.log(success);
   useEffect(() => {
     dispatch(getAllImages());
+    if (success) {
+      toast.success("Image deleted successfully");
+    }
+    if (deleteError) {
+      toast.error("failed to delete image");
+    }
   }, [dispatch]);
 
-  const handleDelete = (imageId) => {
-    // Dispatch delete action with the specific imageId
-    dispatch(deleteImage(imageId));
+  // Use _id for deletion
+  const handleDeleteClick = (imageId) => {
+    setCurrentImageId(imageId);
+    setOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    dispatch(deleteImage(currentImageId)); // Use _id for deletion
+    console.log(currentImageId);
+    setOpen(false);
+    setCurrentImageId(null);
+    dispatch(getAllImages());
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setCurrentImageId(null);
   };
 
   return (
     <div className="image-container">
       {loading ? (
-        <div className="loader">
+        <div className="loader-container">
           <ThreeDots
             visible={true}
             height="80"
@@ -32,18 +65,14 @@ const UploadedPhotos = () => {
           />
         </div>
       ) : (
-        images.map((imageEntry) => (
+        images?.map((imageEntry) => (
           <div key={imageEntry._id} className="image-box">
             {imageEntry.images.map((image, index) => (
-              <div key={index} className="indivisual-image">
-                <img
-                  src={image.url} 
-                  className=""
-                  alt={`Image ${index}`}
-                />
+              <div key={index} className="individual-image">
+                <img src={image.url} className="" alt={`Image ${index}`} />
                 <button
-                  className="bg-danger"
-                  onClick={() => handleDelete(image.public_id)} // Use public_id for deletion
+                  className="delete-image-button"
+                  onClick={() => handleDeleteClick(imageEntry._id)} // Pass _id instead of public_id
                 >
                   Delete
                   <i className="ps-2 fa-solid fa-trash"></i>
@@ -53,24 +82,23 @@ const UploadedPhotos = () => {
           </div>
         ))
       )}
-      {/* Uncomment for delete confirmation popup if needed
-      {showDeleteConfirmation && (
-        <div className="confirmation-popup">
-          <AiOutlineDelete size={35} className="ps-1 my-2 border-circle" />
-          <p>Are you sure you want to delete this image?</p>
-          <div className="confirmation-popup-button">
-            <button
-              onClick={cancelDelete}
-              className="me-4 border border-danger text-danger"
-            >
-              No
-            </button>
-            <button onClick={confirmDelete} className="bg-danger text-white">
-              Yes
-            </button>
-          </div>
-        </div>
-      )} */}
+      {/* Confirmation dialog */}
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this image?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            No
+          </Button>
+          <Button onClick={handleDeleteConfirm} color="secondary">
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

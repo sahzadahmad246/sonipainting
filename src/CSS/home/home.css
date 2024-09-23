@@ -65,12 +65,16 @@
 .landing-right {
   width: 50%;
   margin-top: 25px;
-
-  height: 80%;
   display: flex;
   justify-content: center;
   text-align: center;
 }
+.slider-image {
+  width: 450px;
+  height: 450px;
+  object-fit: cover;
+}
+
 .left-service .btn {
   margin-top: 20px;
   display: flex;
@@ -97,26 +101,23 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: 9999; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
-  /* border: 1px solid red;  */
 }
 
 .gallery-preview-container {
   border-radius: 0px;
   background: #fff;
-  /* border: 1px solid red; */
   width: 450px;
-  height: 450px;
+  object-fit: contain;
 }
-
 
 .close-button {
   /* position: absolute; */
- color: #fff;
+  color: #fff;
   background-color: rgba(0, 0, 0, 0.5);
   border: none;
   width: 100%;
@@ -131,6 +132,11 @@
 .preview-image img {
   object-fit: cover;
   height: 100%;
+  width: 100%;
+}
+.preview-image span {
+  padding: 15px;
+  color: gray;
   width: 100%;
 }
 
