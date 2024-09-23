@@ -63,7 +63,7 @@ const AddPhotos = () => {
     }
 
     // Validate descriptions
-    const newErrors = descriptions.map((desc) => desc.trim() === "");
+    const newErrors = descriptions?.map((desc) => desc.trim() === "");
     setErrors(newErrors);
 
     if (newErrors.includes(true)) {
@@ -118,7 +118,7 @@ const AddPhotos = () => {
           </div>
 
           <div className="preview-container">
-            {selectedFiles.map((file, index) => (
+            {selectedFiles?.map((file, index) => (
               <div key={index} className="preview">
                 <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
                 <TextField
@@ -127,16 +127,15 @@ const AddPhotos = () => {
                   fullWidth
                   value={descriptions[index]}
                   onChange={(e) => handleDescriptionChange(index, e)}
-                  error={errors[index]} 
+                  error={errors[index]}
                   helperText={errors[index] ? "Description is required" : ""}
-                  
-                  sx={{ marginTop: 2 }} 
+                  sx={{ marginTop: 2 }}
                 />
                 {error && (
-        <Typography color="error" variant="body2">
-          {error}
-        </Typography>
-      )}
+                  <Typography color="error" variant="body2">
+                    {error}
+                  </Typography>
+                )}
               </div>
             ))}
           </div>
@@ -150,8 +149,6 @@ const AddPhotos = () => {
           </button>
         </div>
       </div>
-
-      
 
       <UploadedPhotos />
     </>
