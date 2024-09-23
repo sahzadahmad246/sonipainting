@@ -132,7 +132,7 @@ console.log(quotations)
               </div>
               <div className="table-body">
                 {quotations &&
-                  quotations.map((quotation, index) => (
+                  quotations?.map((quotation, index) => (
                     <div className="table-row" key={quotation._id}>
                       <span className="sr">{index + 1}</span>
                       <span className="client">
@@ -151,7 +151,7 @@ console.log(quotations)
                       </span>
                       <span className="items">
                         {expanded[quotation._id]
-                          ? quotation.items.map((item, i) => (
+                          ? quotation?.items?.map((item, i) => (
                               <div key={i}>{item.description}</div>
                             ))
                           : quotation.items
