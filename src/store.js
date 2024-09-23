@@ -1,6 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userReducer, authReducer } from "./reducers/userReducer";
-import { imageUploadReducer, imageUpdateReducer, getAllImagesReducer, getImageByIdReducer, deleteImageReducer } from "./reducers/imageReducer";
+import {
+  imageUploadReducer,
+  imageUpdateReducer,
+  getAllImagesReducer,
+  getImageByIdReducer,
+  deleteImageReducer,
+} from "./reducers/imageReducer";
 import {
   sendQuotationReducer,
   updateSignatureReducer,

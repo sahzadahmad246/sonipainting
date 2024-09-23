@@ -40,7 +40,7 @@ export const registerUser = (userData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/register",
+      "https://sonipainting-backend.onrender.com/api/register",
       userData,
       config
     );
@@ -98,7 +98,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
 
-    const { data } = await axios.get("https://sonipainting-backend.onrender.com/api/me", {
+    const { data } = await axios.get("http://localhost:5000/api/me", {
       withCredentials: true,
     });
     console.log("Loaded user data:", data);
@@ -119,7 +119,7 @@ export const loadUser = () => async (dispatch) => {
 // Logout User Action
 export const logoutUser = () => async (dispatch) => {
   try {
-    await axios.get("https://sonipainting-backend.onrender.com/api/logout", {
+    await axios.get("http://localhost:5000/api/logout", {
       withCredentials: true,
     });
 
