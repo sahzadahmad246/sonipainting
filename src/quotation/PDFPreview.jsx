@@ -68,7 +68,7 @@ console.log(signImageUrl)
           <span>Client Name: {quotation?.client.name}</span>
           <span>Client No: {quotation?.client.number}</span>
         </div>
-        <div className="client-details-box1 ps-0.5">
+        <div className="client-details-box1 ">
           <span>Address: {quotation?.client.address}</span>
         </div>
       </div>

@@ -21,18 +21,15 @@
   display: flex;
   justify-content: space-between;
 }
-.company-details-1 {
+.company-details-1{
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 .company-details-1 img {
   width: 40px;
 }
-.company-details-1 h4 {
-  font-size: 20px;
-  padding-left: 5px;
-}
+
 .whatsapp-box,
 .call-box {
   display: flex;
@@ -42,7 +39,7 @@
   font-size: 13px;
 }
 .company-address span {
-  font-size: 12px;
+  font-size: 13px;
 }
 .blue-line {
   display: flex;
@@ -294,7 +291,7 @@
     font-size: 7px;
   }
   .client-details-box1 {
-    font-size: 5px;
+    font-size: 7px;
   }
   .gray-line {
     height: 0.5px;
@@ -302,7 +299,7 @@
     margin: 7px auto;
   }
   .item-box {
-    height: 30%;
+    height: 34%;
   }
   .item-header,
   .item-content,
