@@ -9,8 +9,8 @@ import Reviews from "../other/Reviews";
 import Gallery from "./Gallery";
 import { useDispatch, useSelector } from "react-redux";
 import { Carousel } from "react-bootstrap";
-
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap styles
+import SliderLoader from "../Loader/sliderLoader";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Home() {
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ function Home() {
     dispatch(getAllImages());
   }, [dispatch]);
 
-  // Function to get 5 random images from the images array
   const getRandomImages = (images, count) => {
     if (!images || images.length === 0) return [];
     const flattenedImages = images.flatMap((imageEntry) => imageEntry.images);
@@ -28,7 +27,7 @@ function Home() {
     return shuffled.slice(0, count);
   };
 
-  const randomImages = getRandomImages(images, 5); // Get 5 random images
+  const randomImages = getRandomImages(images, 5);
 
   return (
     <>
@@ -70,7 +69,7 @@ function Home() {
 
         <div className="landing-right">
           {loading ? (
-            <div>Loading...</div>
+            <SliderLoader />
           ) : error ? (
             <div>Error loading images</div>
           ) : (

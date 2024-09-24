@@ -4,7 +4,7 @@ import "../../CSS/home/Gallery.css";
 import { ThreeDots } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from "../../actions/imageAction";
-
+import GalleryLoader from "../Loader/GalleryLoader";
 const Gallery = ({ displayCount }) => {
   const dispatch = useDispatch();
   const [previewImage, setPreviewImage] = useState(null);
@@ -36,15 +36,7 @@ const Gallery = ({ displayCount }) => {
       </div>
       <div className="gallery-main">
         {loading ? (
-          <div className="loader">
-            <ThreeDots
-              color="red"
-              height={100}
-              width={100}
-              visible={true}
-              className="loader"
-            />
-          </div>
+          <GalleryLoader />
         ) : (
           images.map((imageEntry) =>
             imageEntry.images.slice(0, displayCount).map((image, index) => (

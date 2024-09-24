@@ -94,11 +94,9 @@ const SignQuotation = () => {
   useEffect(() => {
     if (success) {
       toast.success("You rejected this quotation");
-      console.log("Success:", success);
     }
     if (error) {
       toast.error("Failed to reject this quotation");
-      console.log("Error:", error);
     }
   }, [success, error]);
 
