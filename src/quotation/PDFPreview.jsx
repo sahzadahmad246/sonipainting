@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { IoIosCall } from "react-icons/io";
 import logo from "../images/logo.png";
+import omSign from "../images/omSign.png";
 import "./QuotationReview.css";
 
 // Helper function to fetch and convert image to Base64
@@ -30,7 +31,7 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
       });
     }
   }, [signImageUrl]);
-console.log(signImageUrl)
+
   return (
     <div ref={pdfRef} className="quotation-content">
       <div className="company-details">
@@ -93,11 +94,14 @@ console.log(signImageUrl)
           <span className="field-name">Subtotal</span>
           <span className="field-value">₹{quotation?.subtotal}</span>
         </div>
-        <div className="item-total">
-          <span className="null-space"></span>
-          <span className="field-name">Discount</span>
-          <span className="field-value">₹{quotation?.discount}</span>
-        </div>
+        {quotation?.discount ? (
+          <div className="item-total">
+            <span className="null-space"></span>
+            <span className="field-name">Discount</span>
+            <span className="field-value">₹{quotation.discount}</span>
+          </div>
+        ) : null}
+
         <div className="item-total">
           <span className="null-space"></span>
           <span className="field-name">Grand Total</span>
@@ -125,7 +129,7 @@ console.log(signImageUrl)
       </div>
       <div className="signature-box">
         <div className="soni-sign">
-          <img src="" alt="sign" />
+          <img src={omSign} alt="sign" />
           <span>for SONI PAINTING</span>
         </div>
         <div className="client-sign">
