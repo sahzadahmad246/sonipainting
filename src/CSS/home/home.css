@@ -70,9 +70,8 @@
   text-align: center;
 }
 .slider-image {
-  width: 450px;
-  height: 450px;
   object-fit: cover;
+  border: 1px solid #ddd;
 }
 
 .left-service .btn {

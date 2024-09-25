@@ -38,7 +38,7 @@ const Gallery = ({ displayCount }) => {
         {loading ? (
           <GalleryLoader />
         ) : (
-          images.map((imageEntry) =>
+          images?.map((imageEntry) =>
             imageEntry.images.slice(0, displayCount).map((image, index) => (
               <div className="gallery-image" key={index}>
                 <img

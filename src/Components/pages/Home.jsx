@@ -1,33 +1,24 @@
 import React, { useEffect } from "react";
-import painterImage from "../../images/painter1.jpg";
 import Services from "../pages/Services";
-import { getAllImages } from "../../actions/imageAction";
 import "../../CSS/home/home.css";
 import { NavLink } from "react-router-dom";
 import Footer from "./Footer";
 import Reviews from "../other/Reviews";
 import Gallery from "./Gallery";
-import { useDispatch, useSelector } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import SliderLoader from "../Loader/sliderLoader";
 import "bootstrap/dist/css/bootstrap.min.css";
+import staff1 from "../../images/staff1.jpg";
+import staff2 from "../../images/staff2.jpg";
+import staff3 from "../../images/staff3.jpg";
 
 function Home() {
-  const dispatch = useDispatch();
-  const { loading, images, error } = useSelector((state) => state.getAllImages);
-
-  useEffect(() => {
-    dispatch(getAllImages());
-  }, [dispatch]);
-
-  const getRandomImages = (images, count) => {
-    if (!images || images.length === 0) return [];
-    const flattenedImages = images.flatMap((imageEntry) => imageEntry.images);
-    const shuffled = [...flattenedImages].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-  };
-
-  const randomImages = getRandomImages(images, 5);
+  // Images array for the slider (staff1, staff2, staff3)
+  const staffImages = [
+    { url: staff1 },
+    { url: staff2 },
+    { url: staff3 },
+  ];
 
   return (
     <>
@@ -68,28 +59,18 @@ function Home() {
         </div>
 
         <div className="landing-right">
-          {loading ? (
-            <SliderLoader />
-          ) : error ? (
-            <div>Error loading images</div>
-          ) : (
-            <Carousel>
-              {randomImages.map((image, index) => (
-                <Carousel.Item key={index}>
-                  <img
-                    src={image.url}
-                    alt={`Image ${index}`}
-                    className="slider-image"
-                  />
-                  {image.description && (
-                    <Carousel.Caption>
-                      <p className="text-black bg-white">{image.description}</p>
-                    </Carousel.Caption>
-                  )}
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          )}
+          {/* Removed Redux logic and directly used staff images */}
+          <Carousel>
+            {staffImages.map((image, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  src={image.url}
+                  alt={`Staff Image ${index + 1}`}
+                  className="slider-image"
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </div>
       </div>
 
