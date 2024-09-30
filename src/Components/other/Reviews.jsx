@@ -4,7 +4,8 @@ import "../../CSS/home/Reviews.css";
 import DisplayReviews from "./DisplayReviews";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
-
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Button from '@mui/material/Button';
 const Reviews = () => {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
@@ -13,6 +14,7 @@ const Reviews = () => {
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleReviewChange = (e) => {
     setReview(e.target.value);
@@ -29,18 +31,21 @@ const Reviews = () => {
   const handleSubmitReview = async () => {
     try {
       setSubmitting(true);
-      const response = await fetch("https://sonipainting-backend.onrender.com/save-review", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          phone,
-          rating,
-          review,
-        }),
-      });
+      const response = await fetch(
+        "https://sonipainting-backend.onrender.com/save-review",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            rating,
+            review,
+          }),
+        }
+      );
       const data = await response.json();
       setSubmitted(true);
       toast.success(data.message);
@@ -50,7 +55,6 @@ const Reviews = () => {
       setPhone("");
     } catch (error) {
       console.error("Error saving review:", error);
-      // Optionally, handle errors or show an error message to the user
     } finally {
       setSubmitting(false);
     }
@@ -126,16 +130,18 @@ const Reviews = () => {
               color="#fff"
               radius="50"
               ariaLabel="three-dots-loading"
-             
             />
           ) : (
             "Submit"
           )}
         </button>
-
       </div>
       <div className="review-box review-right">
-        <DisplayReviews />
+        <DisplayReviews limit={1} />
+
+        <Button onClick={() => navigate("/reviews")} variant="text">
+          More Reviews
+        </Button>
       </div>
     </div>
   );

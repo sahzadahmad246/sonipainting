@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../../CSS/home/DisplayReviews.css";
 import { FaRegUserCircle, FaStar } from "react-icons/fa";
+import { CircularProgress } from "@mui/material";
 
-const DisplayReviews = () => {
+const DisplayReviews = ({ limit }) => {
   const [averageRating, setAverageRating] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [numberOfReviews, setNumberOfReviews] = useState(0);
   const [ratingsCount, setRatingsCount] = useState({});
   const [error, setError] = useState(null);
-console.log(ratingsCount)
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     Promise.all([
       fetch("https://sonipainting-backend.onrender.com/reviews"),
@@ -27,34 +29,41 @@ console.log(ratingsCount)
         setNumberOfReviews(reviewsData.numberOfReviews);
         setAverageRating(averageRatingData.averageRating);
         setRatingsCount(ratingsCountData.ratingsMap);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setError("Error fetching data. Please try again later.");
+        setLoading(false);
       });
   }, []);
 
-  const [hover, setHover] = useState(null);
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  // Limit reviews based on the limit prop
+  const displayedReviews = limit ? reviews.slice(0, limit) : reviews;
 
   const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day < 10 ? "0" + day : day}/${
-      month < 10 ? "0" + month : month
-    }/${year}`;
+    return date.toLocaleDateString(undefined, options);
   };
 
   return (
     <div className="display-reviews-main">
       <div className="average-rating">
         <div className="average-rating-left average-rating-box">
-          <div className="d-flex  m-0 align-items-center">
+          <div className="d-flex m-0 align-items-center">
             <h3 className="p-0 m-0">{averageRating}</h3>
             <FaStar className="fa-solid fa-star ps-1" size={25} />
           </div>
-          <p className="fs-5  text-secondary">{numberOfReviews} ratings</p>
+          <p className="fs-5 text-secondary">{numberOfReviews} ratings</p>
         </div>
         <div className="average-rating-right average-rating-box">
           <ul>
@@ -67,9 +76,7 @@ console.log(ratingsCount)
                   <div
                     className="rating-bar-fill"
                     style={{
-                      width: `${
-                        ((ratingsCount[rating] || 0) / numberOfReviews) * 100
-                      }%`,
+                      width: `${((ratingsCount[rating] || 0) / numberOfReviews) * 100}%`,
                     }}
                   ></div>
                 </div>
@@ -80,13 +87,13 @@ console.log(ratingsCount)
       </div>
 
       <ul className="all-reviews">
-        {reviews.map((review, index) => (
+        {displayedReviews.map((review, index) => (
           <li key={index}>
             <div className="name-icon">
               <FaRegUserCircle size={25} />{" "}
               <p className="ps-2">{review.name}</p>
             </div>
-            <div className=" d-flex position-relative">
+            <div className="d-flex position-relative">
               {review.replies && review.replies.length > 0 && (
                 <div
                   className="replies-line bg-secondary"
@@ -111,7 +118,7 @@ console.log(ratingsCount)
 
             <div className="replies mt-2">
               {review.replies && review.replies.length > 0 && (
-                <div className="name-icon">
+                <div className="name-icon ">
                   <FaRegUserCircle size={25} />{" "}
                   <p className="ps-2">Soni Painting</p>
                 </div>

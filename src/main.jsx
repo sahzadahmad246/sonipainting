@@ -19,6 +19,7 @@ import QuotationReview from "./quotation/QuotationReview.jsx";
 import SignQuotation from "./quotation/SignQuotation.jsx";
 import TakeSign from "./quotation/TakeSign.jsx";
 import UpdateQuotation from "./quotation/UpdateQuotation.jsx";
+import DisplayReviews from "./Components/other/DisplayReviews.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/call-back",
         element: <Callback />,
+      },
+      {
+        path: "/reviews",
+        element: <DisplayReviews />,
       },
       {
         path: "/login",

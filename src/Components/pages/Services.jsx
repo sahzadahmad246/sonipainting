@@ -56,7 +56,7 @@ const servicesData = [
       "Professional carpentry services for custom furniture, doors, and cabinets.",
   },
   {
-    icon: civilIcon, // New service
+    icon: civilIcon, 
     title: "Civil Work",
     description:
       "Expert civil work services for repairs, renovations, and construction projects.",

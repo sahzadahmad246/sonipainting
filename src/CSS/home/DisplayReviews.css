@@ -1,16 +1,13 @@
 .display-reviews-main {
   width: 100%;
   height: 100%;
+  padding: 10px;
 }
 
 .average-rating {
   display: flex;
   width: 100%;
   justify-content: space-between;
-}
-
-.average-rating-box {
-  
 }
 
 .average-rating-left {
@@ -34,7 +31,6 @@
 }
 .average-rating-right ul {
   width: 100%;
-  
 }
 
 .rating-list {
@@ -42,7 +38,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  
 }
 .rating-stars {
   display: flex;
@@ -56,8 +51,8 @@
 }
 
 .rating-bar {
-  width: 300px; 
-  height: 10px; 
+  width: 300px;
+  height: 10px;
   background-color: #dcd9d9;
   border-radius: 10px;
   /* border: 1px solid red; */
@@ -66,13 +61,11 @@
 .rating-bar-fill {
   height: 100%;
   border-radius: 10px;
-  background-color: #007bff; 
+  background-color: #007bff;
 }
 
 .all-reviews {
-  max-height: 250px;
-  overflow-y: auto;
-  scrollbar-width: thin;
+  width: auto;
 }
 
 .all-reviews li {
@@ -81,31 +74,31 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  
 }
 
 .all-reviews li .name-icon {
   display: flex;
   align-items: center;
 }
-.rating-review{
+.rating-review {
   margin-left: 30px;
 }
-.replies-line{
+.replies-line {
   position: absolute;
   width: 2px;
   left: 7px;
   background: rgb(165, 165, 165);
   margin: 5px;
 }
-.replies .reply{
+.replies .reply {
   margin-left: 30px;
   color: rgb(165, 165, 165);
 }
-/* .all-reviews .star-rating{
-  width: 100%;
-  margin-left: 33px;
-} */
+.loading-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
 
 @media only screen and (max-width: 767px) {
   .display-reviews-main {
@@ -117,7 +110,7 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    padding:  0px 10px;
+    padding: 0px 10px;
   }
 
   .average-rating-box {
@@ -129,7 +122,6 @@
     align-items: center;
     justify-content: center;
     width: 25%;
-    
   }
 
   .average-rating-left i {
@@ -146,7 +138,7 @@
   .average-rating-right ul {
     width: 100%;
   }
-  
+
   /* Add this to your CSS file */
   .rating-list {
     display: flex;
@@ -155,13 +147,11 @@
     width: 100%;
     padding: 0px;
     margin: 0;
-   
   }
   .rating-stars {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-    
   }
 
   .rating-stars span {
@@ -169,8 +159,8 @@
   }
 
   .rating-bar {
-    width: 300px; 
-    height: 10px; 
+    width: 300px;
+    height: 10px;
     background-color: #dcd9d9;
     border-radius: 10px;
   }
@@ -178,13 +168,10 @@
   .rating-bar-fill {
     height: 100%;
     border-radius: 10px;
-    background-color: #007bff; 
+    background-color: #007bff;
   }
 
   .all-reviews {
-    max-height: 250px;
-    overflow-y: auto;
-    scrollbar-width: unset;
     padding: 0;
     margin: 0px 10px;
   }
