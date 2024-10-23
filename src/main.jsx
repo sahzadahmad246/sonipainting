@@ -7,7 +7,6 @@ import Home from "./Components/pages/Home.jsx";
 import Gallery from "./Components/pages/Gallery.jsx";
 import Quote from "./Components/pages/Quote.jsx";
 import Contact from "./Components/pages/Contact.jsx";
-import Nav from "./Components/header/Nav.jsx";
 import Services from "./Components/pages/Services.jsx";
 import Callback from "./Components/pages/Callback.jsx";
 import Admin from "./Components/other/Admin.jsx";
@@ -17,7 +16,6 @@ import store from "./store.js";
 import Login from "./Components/User/Login.jsx";
 import QuotationReview from "./quotation/QuotationReview.jsx";
 import SignQuotation from "./quotation/SignQuotation.jsx";
-import TakeSign from "./quotation/TakeSign.jsx";
 import UpdateQuotation from "./quotation/UpdateQuotation.jsx";
 import DisplayReviews from "./Components/other/DisplayReviews.jsx";
 const router = createBrowserRouter([
@@ -72,10 +70,6 @@ const router = createBrowserRouter([
       {
         path: "/sign/quotation/:id",
         element: <SignQuotation />,
-      },
-      {
-        path: "/taking/sign-of/:id",
-        element: <TakeSign />,
       },
       {
         path: "/edit/quotation/:id",

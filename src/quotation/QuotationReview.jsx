@@ -19,9 +19,10 @@ const QuotationReview = () => {
   const { loading, quotation, error } = useSelector(
     (state) => state.getQuotationById
   );
-  // Get current date and time
-  const now = new Date();
-  const formattedDate = format(now, "dd - MMMM - yyyy h:mm a");
+    // Format the createdAt date from the quotation data
+    const formattedDate = quotation?.createdAt 
+    ? format(new Date(quotation.createdAt), "dd - MMMM - yyyy h:mm a")
+    : "";
 
   useEffect(() => {
     if (id) {

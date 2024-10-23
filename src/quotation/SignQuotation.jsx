@@ -4,20 +4,14 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { format } from "date-fns";
 import "./QuotationReview.css";
-import logo from "../images/logo.png";
-import { FaWhatsapp } from "react-icons/fa";
-import { IoIosCall } from "react-icons/io";
-import { GoDownload } from "react-icons/go";
 import { useParams } from "react-router-dom";
 import { getQuotationById } from "../actions/quotationAction";
 import Loader from "../Components/header/Loader";
-import TakeSign from "./TakeSign";
 import { useNavigate } from "react-router-dom";
 import { FaCheckCircle } from "react-icons/fa";
 import { Select, MenuItem, TextField, Button } from "@mui/material";
 import { updateQuotation } from "../actions/quotationAction";
 import { toast } from "react-toastify";
-import CircularProgress from "@mui/material/CircularProgress";
 import { FaTimesCircle } from "react-icons/fa";
 import PdfPreview from "./PDFPreview";
 
@@ -46,8 +40,10 @@ const SignQuotation = () => {
     }
   }, [dispatch, id]);
 
-  const now = new Date();
-  const formattedDate = format(now, "dd - MMMM - yyyy h:mm a");
+  // Format the createdAt date from the quotation data
+  const formattedDate = quotation?.createdAt
+    ? format(new Date(quotation.createdAt), "dd - MMMM - yyyy h:mm a")
+    : "";
 
   const handleGeneratePDF = () => {
     const input = pdfRef.current;
@@ -72,8 +68,11 @@ const SignQuotation = () => {
     });
   };
 
-  const navigateToTakeSign = () => {
-    navigate(`/taking/sign-of/${quotation._id}`);
+  const handleSigning = () => {
+    const dataToBeUpdated = {
+      status: "accepted",
+    };
+    dispatch(updateQuotation(id, dataToBeUpdated));
   };
 
   const handleNavigate = () => {
@@ -93,7 +92,9 @@ const SignQuotation = () => {
   };
   useEffect(() => {
     if (success) {
-      toast.success("You rejected this quotation");
+      toast.success("Success");
+
+      dispatch(getQuotationById(id));
     }
     if (error) {
       toast.error("Failed to reject this quotation");
@@ -113,7 +114,7 @@ const SignQuotation = () => {
           />
           <div className="action-button">
             {/* Show sign-consent and reject div if clientSignature is 0 and status is not rejected */}
-            {quotation?.clientSignature?.length === 0 &&
+            {quotation?.status === "pending" &&
               quotation?.status !== "rejected" && (
                 <>
                   <div className="sign-consent">
@@ -131,10 +132,10 @@ const SignQuotation = () => {
                     </div>
                     <button
                       className={`sign-button ${isChecked ? "" : "disabled"}`}
-                      disabled={!isChecked}
-                      onClick={navigateToTakeSign}
+                      disabled={!isChecked || updateLoading}
+                      onClick={handleSigning}
                     >
-                      Sign It
+                      {updateLoading ? "signing..." : "Sign It"}
                     </button>
                   </div>
 
@@ -218,17 +219,17 @@ const SignQuotation = () => {
                   </div>
                   <button
                     className={`sign-button ${isChecked ? "" : "disabled"}`}
-                    disabled={!isChecked}
-                    onClick={navigateToTakeSign}
+                    disabled={!isChecked || updateLoading}
+                    onClick={handleSigning}
                   >
-                    Sign It
+                    {updateLoading ? "signing..." : "Sign It"}
                   </button>
                 </div>
               </>
             )}
 
             {/* Show deal is done and download/share buttons if clientSignature is available */}
-            {quotation?.clientSignature?.length > 0 &&
+            {quotation?.status == "accepted" &&
               quotation?.status !== "rejected" && (
                 <>
                   <>

@@ -59,7 +59,7 @@ function Home() {
         </div>
 
         <div className="landing-right">
-          {/* Removed Redux logic and directly used staff images */}
+         
           <Carousel>
             {staffImages.map((image, index) => (
               <Carousel.Item key={index}>

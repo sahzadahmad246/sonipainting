@@ -21,7 +21,7 @@
   display: flex;
   justify-content: space-between;
 }
-.company-details-1{
+.company-details-1 {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -150,7 +150,7 @@
   justify-content: center;
   align-items: center;
 }
-.soni-sign img{
+.soni-sign img {
   width: 100px;
 }
 .sign-img {
@@ -303,7 +303,7 @@
     margin: 7px auto;
   }
   .item-box {
-    min-height: 80px;
+    min-height: 150px;
   }
   .item-header,
   .item-content,
