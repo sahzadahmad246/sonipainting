@@ -85,20 +85,25 @@ const PdfPreview = ({ pdfRef, quotation, formattedDate }) => {
       <div className="term-and-condition">
         <h5>Term & Condition</h5>
         <span>
-          1. Any additional work requested by the customer that is not included
+          1. Our payment terms are 25% in advance to start the work. 50% payment
+          is due after 50% of the work is completed, totaling 75%. The remaining
+          25% is due upon project completion.
+        </span>
+        <span>
+          2. Any additional work requested by the customer that is not included
           in the original scope of work will be priced separately and agreed
           upon in writing before proceeding.
         </span>
         <span>
-          2. The SONI PAINTING WORKS will be responsible for thoroughly cleaning
+          3. The SONI PAINTING WORKS will be responsible for thoroughly cleaning
           the work area after completion, leaving no mess or debris behind.
         </span>
         <span>
-          3. We will provide regular updates on progress and will communicate
+          4. We will provide regular updates on progress and will communicate
           any delays or changes to the timeline in a timely manner.
         </span>
         <span>
-          4. By signing this document, you agree with our terms and conditions.
+          5. By signing this document, you agree with our terms and conditions.
         </span>
       </div>
       <div className="signature-box">
